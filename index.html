@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="orb - Club Social para Artistas Emergentes. Arte, comunidad y sofisticación en un solo espacio. Plataforma de apoyo y lanzamiento para talento emergente.">
+  <meta name="keywords" content="orb, club, artistas emergentes, arte, música, eventos, Madrid, galería, performances">
+  <meta name="author" content="orb Club">
+  <meta name="theme-color" content="#0a0a0a">
+  
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="orb - Club Social para Artistas Emergentes">
+  <meta property="og:description" content="Plataforma de apoyo y lanzamiento para artistas emergentes. Arte, comunidad y sofisticación en un solo espacio.">
+  <meta property="og:image" content="assets/og-image.jpg">
+  
+  <title>orb - Club Social para Artistas Emergentes</title>
+  
+  <!-- Preload critical assets -->
+  <link rel="preload" href="styles.css" as="style">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" as="style">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◉</text></svg>">
+</head>
+<body>
+  <!-- Skip to main content link for accessibility -->
+  <a href="#hero" class="skip-link">Saltar al contenido principal</a>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-container">
+      <a href="#" class="logo">
+              <img src="assets/logo-orb.png" alt="ORB" class="logo-image">
+            </a>
+      
+      <nav class="nav-desktop">
+        <a href="#artistas" class="nav-link">Artistas</a>
+        <a href="#eventos" class="nav-link">Eventos</a>
+        <a href="#espacio" class="nav-link">Espacio</a>
+        <a href="#manifiesto" class="nav-link">Manifiesto</a>
+        <a href="#contacto" class="btn-outline">Reservar</a>
+      </nav>
+      
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        <span class="menu-icon"></span>
+      </button>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <nav class="nav-mobile" id="navMobile">
+      <a href="#artistas" class="nav-link-mobile">Artistas</a>
+      <a href="#eventos" class="nav-link-mobile">Eventos</a>
+      <a href="#espacio" class="nav-link-mobile">Espacio</a>
+      <a href="#manifiesto" class="nav-link-mobile">Manifiesto</a>
+      <a href="#contacto" class="btn-outline">Reservar</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-bg">
+        <img src="assets/hero-fondo.jpg" alt="" class="hero-bg-image" loading="eager">
+        <div class="hero-overlay"></div>
+        <div class="hero-overlay-side"></div>
+      </div>
+      <div class="hero-grid"></div>
+      
+      <div class="container hero-content">
+        <p class="hero-subtitle">Club Social para Artistas Emergentes</p>
+        <h1 class="hero-title">
+          <span>Donde el Arte</span>
+          <span class="hero-title-accent">Cobra Vida</span>
+        </h1>
+        <p class="hero-description">
+          Una plataforma de apoyo y lanzamiento para artistas emergentes. Arte, comunidad y sofisticación en un solo espacio.
+        </p>
+        <div class="hero-buttons">
+          <a href="#eventos" class="btn-primary">Próximos Eventos</a>
+          <a href="#artistas" class="btn-ghost">Conoce a los Artistas</a>
+        </div>
+      </div>
+      
+      <div class="scroll-indicator">
+        <span>Scroll</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6,9 12,15 18,9"></polyline>
+        </svg>
+      </div>
+      
+      <div class="hero-accent-line hero-accent-left"></div>
+      <div class="hero-accent-line hero-accent-right"></div>
+    </section>
+
+    <!-- Cosmic Background Wrapper -->
+    <div class="cosmic-wrapper">
+      <div class="cosmic-bg">
+        <img src="assets/cosmic-pillars.jpg" alt="" class="cosmic-bg-image" loading="lazy">
+        <div class="cosmic-overlay"></div>
+      </div>
+      
+      <!-- Artists Section -->
+      <section class="section artists-section" id="artistas">
+        <div class="container">
+          <div class="section-header section-header-split">
+            <div>
+              <p class="section-label">Talento Emergente</p>
+              <h2 class="section-title">Artistas</h2>
+            </div>
+            <p class="section-description">
+              Descubre a los creadores que están definiendo el sonido y la estética de una nueva generación.
+            </p>
+          </div>
+          
+          <div class="artists-slider-wrapper">
+            <button class="slider-arrow slider-arrow-left" id="artistsPrev" aria-label="Anterior artista">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            
+            <div class="artists-slider" id="artistsSlider">
+              <div class="artists-track" id="artistsTrack">
+                <article class="artist-card" data-artist="1">
+                  <div class="artist-image-container">
+                    <img src="assets/artist-teban.jpg" alt="Teban Visual - VJ / Visuales" class="artist-image" loading="lazy">
+                    <div class="artist-image-overlay"></div>
+                  </div>
+                  <div class="artist-content">
+                    <p class="artist-discipline">VJ / Visuales</p>
+                    <h3 class="artist-name">Teban Visual</h3>
+                    <p class="artist-description">Experiencias visuales inmersivas que transforman el espacio.</p>
+                    <div class="artist-social">
+                      <a href="https://www.instagram.com/tebanvisual" target="_blank" rel="noopener" aria-label="Instagram de Teban Visual">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="artist-accent"></div>
+                </article>
+                
+                <article class="artist-card" data-artist="2">
+                  <div class="artist-image-container">
+                    <img src="assets/artist-jaberth.png" alt="Jaberth - DJ / Productor" class="artist-image" loading="lazy">
+                    <div class="artist-image-overlay"></div>
+                  </div>
+                  <div class="artist-content">
+                    <p class="artist-discipline">DJ / Productor</p>
+                    <h3 class="artist-name">Jaberth</h3>
+                    <p class="artist-description">Sonidos electrónicos que definen la nueva escena underground.</p>
+                    <div class="artist-social">
+                      <a href="https://www.instagram.com/jaberth_" target="_blank" rel="noopener" aria-label="Instagram de Jaberth">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="artist-accent"></div>
+                </article>
+                
+                <article class="artist-card" data-artist="3">
+                  <div class="artist-image-container">
+                    <img src="assets/artist-jd.png" alt="JD - DJ / Productor" class="artist-image" loading="lazy">
+                    <div class="artist-image-overlay"></div>
+                  </div>
+                  <div class="artist-content">
+                    <p class="artist-discipline">DJ / Productor</p>
+                    <h3 class="artist-name">JD</h3>
+                    <p class="artist-description">Beats que fusionan lo urbano con lo experimental.</p>
+                    <div class="artist-social">
+                      <a href="https://www.instagram.com/jd_music" target="_blank" rel="noopener" aria-label="Instagram de JD">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="artist-accent"></div>
+                </article>
+                
+                <article class="artist-card" data-artist="4">
+                  <div class="artist-image-container">
+                    <img src="assets/artist-mac.png" alt="MAC - Artista" class="artist-image" loading="lazy">
+                    <div class="artist-image-overlay"></div>
+                  </div>
+                  <div class="artist-content">
+                    <p class="artist-discipline">Artista</p>
+                    <h3 class="artist-name">MAC</h3>
+                    <p class="artist-description">Arte visual y sonoro que rompe fronteras.</p>
+                    <div class="artist-social">
+                      <a href="https://www.instagram.com/mac_art" target="_blank" rel="noopener" aria-label="Instagram de MAC">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="artist-accent"></div>
+                </article>
+                
+                <article class="artist-card" data-artist="5">
+                  <div class="artist-image-container">
+                    <img src="assets/artist-rafa.png" alt="RAFA - DJ / Productor" class="artist-image" loading="lazy">
+                    <div class="artist-image-overlay"></div>
+                  </div>
+                  <div class="artist-content">
+                    <p class="artist-discipline">DJ / Productor</p>
+                    <h3 class="artist-name">RAFA</h3>
+                    <p class="artist-description">Sonidos experimentales con toques futuristas.</p>
+                    <div class="artist-social">
+                      <a href="https://www.instagram.com/rafa_music" target="_blank" rel="noopener" aria-label="Instagram de RAFA">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="artist-accent"></div>
+                </article>
+                
+                <article class="artist-card" data-artist="6">
+                  <div class="artist-image-container">
+                    <img src="assets/artist-cam.png" alt="CAM Photos - Fotografía" class="artist-image" loading="lazy">
+                    <div class="artist-image-overlay"></div>
+                  </div>
+                  <div class="artist-content">
+                    <p class="artist-discipline">Fotografía</p>
+                    <h3 class="artist-name">CAM Photos</h3>
+                    <p class="artist-description">Capturando momentos que definen la escena.</p>
+                    <div class="artist-social">
+                      <a href="https://www.instagram.com/cam_photos" target="_blank" rel="noopener" aria-label="Instagram de CAM Photos">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="artist-accent"></div>
+                </article>
+              </div>
+            </div>
+            
+            <button class="slider-arrow slider-arrow-right" id="artistsNext" aria-label="Siguiente artista">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+          
+          <div class="slider-dots" id="sliderDots"></div>
+          
+          <div class="section-cta">
+            <a href="https://youtube.com/@orbmusic-pk9ii?si=DsXFButiyBEmsvz0" target="_blank" rel="noopener" class="link-arrow">
+              Ver todos los artistas
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Events Section -->
+      <section class="section events-section" id="eventos">
+        <div class="events-transition-overlay"></div>
+        <div class="container">
+          <div class="section-header section-header-split">
+            <div>
+              <p class="section-label">Calendario</p>
+              <h2 class="section-title">Próximos Eventos</h2>
+            </div>
+            <a href="#" class="link-arrow">
+              Ver calendario completo
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+          
+          <div class="events-grid">
+            <div class="event-featured" id="eventFeatured">
+              <img src="assets/event-valentine.jpg" alt="Valentine Party" class="event-featured-image" id="eventFeaturedImage" loading="lazy">
+              <div class="event-featured-overlay"></div>
+              <div class="event-featured-content">
+                <span class="event-category" id="eventFeaturedCategory">Evento Especial</span>
+                <h3 class="event-featured-title" id="eventFeaturedTitle">Valentine Party</h3>
+                <div class="event-meta">
+                  <span class="event-meta-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <span id="eventFeaturedDate">14 FEB</span>
+                  </span>
+                  <span class="event-meta-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span id="eventFeaturedTime">21:00</span>
+                  </span>
+                  <span class="event-meta-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    orb Club
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="events-list">
+              <article class="event-item active" data-event="1" data-title="Valentine Party" data-date="14 FEB" data-time="21:00" data-category="Evento Especial" data-image="assets/event-valentine.jpg">
+                <div class="event-date-block">
+                  <span class="event-date-day">14</span>
+                  <span class="event-date-month">FEB</span>
+                </div>
+                <div class="event-info">
+                  <span class="event-item-category">Evento Especial</span>
+                  <h4 class="event-item-title">Valentine Party</h4>
+                  <span class="event-item-time">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    21:00
+                  </span>
+                </div>
+                <div class="event-arrow">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+              </article>
+              
+              <article class="event-item" data-event="2" data-title="GOTAS - Live Session" data-date="22 FEB" data-time="22:00" data-category="DJ Set" data-image="assets/event-gotas.jpg">
+                <div class="event-date-block">
+                  <span class="event-date-day">22</span>
+                  <span class="event-date-month">FEB</span>
+                </div>
+                <div class="event-info">
+                  <span class="event-item-category">DJ Set</span>
+                  <h4 class="event-item-title">GOTAS - Live Session</h4>
+                  <span class="event-item-time">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    22:00
+                  </span>
+                </div>
+                <div class="event-arrow">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Venue Section -->
+      <section class="section venue-section" id="espacio">
+        <div class="container">
+          <div class="section-header section-header-center">
+            <p class="section-label">El Espacio</p>
+            <h2 class="section-title">
+              Arquitectura Industrial<br>
+              <span class="text-accent">Refinada</span>
+            </h2>
+            <p class="section-description section-description-center">
+              Cuatro espacios únicos diseñados para transformar cada evento en una experiencia sensorial completa.
+            </p>
+          </div>
+          
+          <div class="venue-main" id="venueMain">
+            <img src="assets/venue-main.jpg" alt="Main Hall - Espacio principal" class="venue-main-image" id="venueMainImage" loading="lazy">
+            <div class="venue-main-overlay"></div>
+            <div class="venue-main-overlay-side"></div>
+            <div class="venue-main-content">
+              <h3 class="venue-main-title" id="venueMainTitle">Main Hall</h3>
+              <p class="venue-main-description" id="venueMainDescription">500m² de espacio principal con sistema de sonido Funktion-One y iluminación arquitectónica programable.</p>
+              <span class="venue-main-capacity" id="venueMainCapacity">Capacidad: 400 personas</span>
+            </div>
+          </div>
+          
+          <div class="venue-nav">
+            <button class="venue-nav-btn active" data-space="1" data-name="Main Hall" data-description="500m² de espacio principal con sistema de sonido Funktion-One y iluminación arquitectónica programable." data-capacity="400 personas" data-image="assets/venue-main.jpg">
+              <img src="assets/venue-main.jpg" alt="Main Hall" class="venue-nav-image" loading="lazy">
+              <div class="venue-nav-overlay"></div>
+              <span class="venue-nav-label">Main Hall</span>
+            </button>
+            
+            <button class="venue-nav-btn" data-space="2" data-name="The Vault" data-description="Espacio íntimo subterráneo para sets experimentales y experiencias inmersivas." data-capacity="80 personas" data-image="assets/venue-vault.jpg">
+              <img src="assets/venue-vault.jpg" alt="The Vault" class="venue-nav-image" loading="lazy">
+              <div class="venue-nav-overlay"></div>
+              <span class="venue-nav-label">The Vault</span>
+            </button>
+            
+            <button class="venue-nav-btn" data-space="3" data-name="Gallery" data-description="Galería de arte contemporáneo con paredes móviles y sistema de proyección 360°." data-capacity="150 personas" data-image="assets/venue-gallery.jpg">
+              <img src="assets/venue-gallery.jpg" alt="Gallery" class="venue-nav-image" loading="lazy">
+              <div class="venue-nav-overlay"></div>
+              <span class="venue-nav-label">Gallery</span>
+            </button>
+            
+            <button class="venue-nav-btn" data-space="4" data-name="Rooftop" data-description="Terraza panorámica con bar y área lounge para eventos privados." data-capacity="120 personas" data-image="assets/venue-rooftop.jpg">
+              <img src="assets/venue-rooftop.jpg" alt="Rooftop" class="venue-nav-image" loading="lazy">
+              <div class="venue-nav-overlay"></div>
+              <span class="venue-nav-label">Rooftop</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Manifesto Section -->
+      <section class="section manifesto-section" id="manifiesto">
+        <div class="manifesto-transition-overlay"></div>
+        <div class="manifesto-glass"></div>
+        <div class="manifesto-pattern"></div>
+        
+        <div class="container">
+          <div class="manifesto-content">
+            <div class="manifesto-line"></div>
+            
+            <p class="section-label">Nuestro Manifiesto</p>
+            
+            <blockquote class="manifesto-quote" id="manifestoQuote">
+              <span class="quote-mark">"</span>
+              Creemos en el poder del arte para transformar. En las voces que aún no han sido escuchadas. En los espacios donde lo imposible
+              <span class="text-accent"> se hace real</span>.<span class="quote-mark">"</span>
+            </blockquote>
+            
+            <div class="manifesto-text" id="manifestoText">
+              <p>
+                orb no es solo un club. Es una plataforma de lanzamiento para el talento emergente. Un punto de encuentro donde artistas, creadores y visionarios convergen para dar forma a la cultura de mañana.
+              </p>
+              
+              <div class="manifesto-values">
+                <span class="manifesto-value">
+                  <span class="value-dot"></span>
+                  Arte
+                </span>
+                <span class="manifesto-value">
+                  <span class="value-dot"></span>
+                  Comunidad
+                </span>
+                <span class="manifesto-value">
+                  <span class="value-dot"></span>
+                  Innovación
+                </span>
+              </div>
+            </div>
+            
+            <div class="manifesto-line"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacto">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="#" class="logo logo-large">
+              <img src="assets/logo-orb.png" alt="ORB" class="logo-image logo-image-large">
+            </a>
+            <p class="footer-description">
+              Plataforma de apoyo y lanzamiento para artistas emergentes. Donde el arte, la comunidad y la sofisticación convergen naturalmente.
+            </p>
+            <div class="social-links">
+              <a href="#" class="social-link" aria-label="Instagram">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </a>
+              <a href="#" class="social-link" aria-label="Twitter">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+              </a>
+              <a href="#" class="social-link" aria-label="YouTube">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+              </a>
+            </div>
+          </div>
+          
+          <div class="footer-nav">
+            <h4 class="footer-title">Navegación</h4>
+            <nav class="footer-links">
+              <a href="#artistas">Artistas</a>
+              <a href="#eventos">Eventos</a>
+              <a href="#espacio">Espacio</a>
+              <a href="#manifiesto">Manifiesto</a>
+            </nav>
+          </div>
+          
+          <div class="footer-contact">
+            <h4 class="footer-title">Contacto</h4>
+            <div class="contact-links">
+              <a href="mailto:hola@orbclub.com" class="contact-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                hola@orbclub.com
+              </a>
+              <a href="https://wa.me/34912345678" class="contact-item whatsapp-btn" target="_blank" rel="noopener">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                +34 912 345 678
+              </a>
+              <span class="contact-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                Calle de la Industria 42<br>28045 Madrid, España
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <p>© 2025 orb. Todos los derechos reservados.</p>
+          <div class="footer-legal">
+            <a href="#">Política de Privacidad</a>
+            <a href="#">Términos de Uso</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/34912345678?text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20orb" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
