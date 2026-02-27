@@ -249,7 +249,7 @@
   // ===== Preload Critical Images =====
   function preloadImages() {
     const criticalImages = [
-      'assets/hero-nightclub.jpg',
+      'assets/hero-fondo.jpg',
       'assets/cosmic-pillars.jpg'
     ];
 
