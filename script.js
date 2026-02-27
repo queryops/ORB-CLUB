@@ -296,6 +296,29 @@
 
   initImageErrorHandling();
 
+  // ===== Star Field Generator =====
+  function initStarField() {
+    var sf = document.getElementById('starfield');
+    if (!sf) return;
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < 220; i++) {
+      var s = document.createElement('span');
+      var r = Math.random();
+      var sz = r < 0.65 ? 1 : (r < 0.88 ? 1.5 : 2);
+      s.style.left             = (Math.random() * 100).toFixed(2) + '%';
+      s.style.top              = (Math.random() * 100).toFixed(2) + '%';
+      s.style.width            = sz + 'px';
+      s.style.height           = sz + 'px';
+      s.style.opacity          = (0.25 + Math.random() * 0.65).toFixed(2);
+      s.style.animationDelay   = (Math.random() * 6).toFixed(1) + 's';
+      s.style.animationDuration = (2 + Math.random() * 4).toFixed(1) + 's';
+      frag.appendChild(s);
+    }
+    sf.appendChild(frag);
+  }
+
+  initStarField();
+
   // ===== Console Message =====
   console.log('%c orb ', 'background: #4d9de0; color: #0a0a0a; font-size: 24px; font-weight: bold; padding: 10px 20px;');
   console.log('%c Club Social para Artistas Emergentes ', 'color: #999; font-size: 12px;');
