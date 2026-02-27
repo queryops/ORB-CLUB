@@ -19,6 +19,7 @@
   /* Typography */
   --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-serif: 'Playfair Display', Georgia, serif;
+  --font-urban: 'Barlow Condensed', 'Space Grotesk', sans-serif;
   
   /* Spacing */
   --container-max: 1280px;
@@ -409,7 +410,10 @@ body {
 }
 
 .hero-bg-image {
-  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
 }
 
 /* Hero ORB logo */
@@ -957,9 +961,11 @@ body {
 }
 
 .event-featured-title {
-  font-family: var(--font-serif);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-weight: 400;
+  font-family: var(--font-urban);
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--foreground);
   margin-bottom: 1rem;
 }
@@ -1040,9 +1046,11 @@ body {
 }
 
 .event-item-title {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-weight: 400;
+  font-family: var(--font-urban);
+  font-size: clamp(1rem, 2vw, 1.375rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--foreground);
   margin-bottom: 0.5rem;
 }
@@ -1135,9 +1143,11 @@ body {
 }
 
 .venue-main-title {
-  font-family: var(--font-serif);
-  font-size: clamp(1.875rem, 4vw, 3rem);
-  font-weight: 400;
+  font-family: var(--font-urban);
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: var(--foreground);
   margin-bottom: 1rem;
 }
@@ -1221,9 +1231,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
+  font-family: var(--font-urban);
+  font-size: 0.95rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.12em;
   color: var(--muted-foreground);
   transition: color 0.3s ease;
 }

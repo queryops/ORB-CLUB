@@ -1,10 +1,19 @@
 import Link from "next/link"
-import { Instagram, Twitter, Youtube, Mail, MapPin, Phone } from "lucide-react"
+import { Instagram, Music, Mail, MapPin, Phone } from "lucide-react"
+
+function YoutubeIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+      <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
+    </svg>
+  )
+}
 
 const socialLinks = [
   { icon: Instagram, href: "https://www.instagram.com/orb.music00?igsh=MXkwM2R6emVkbzMxOQ==", label: "Instagram" },
-  { icon: Twitter, href: "https://open.spotify.com/artist/6Bl6scWVQQ8F14lHmZ8Bqo?si=yPie65mFQF-Yf8OAQGFv7A", label: "Twitter" },
-  { icon: Youtube, href: "https://youtube.com/@orbmusic-pk9ii?si=DsXFButiyBEmsvz0", label: "YouTube" },
+  { icon: Music, href: "https://open.spotify.com/artist/6Bl6scWVQQ8F14lHmZ8Bqo?si=yPie65mFQF-Yf8OAQGFv7A", label: "Spotify" },
+  { icon: YoutubeIcon, href: "https://youtube.com/@orbmusic-pk9ii?si=DsXFButiyBEmsvz0", label: "YouTube" },
 ]
 
 const navLinks = [
@@ -71,7 +80,7 @@ export function Footer() {
                 ORBCLUB@gmail.com
               </a>
               <a
-                href="tel:+34912345678"
+                href="tel:+573114466471"
                 className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Phone className="w-4 h-4 text-primary" />

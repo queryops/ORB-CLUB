@@ -8,35 +8,35 @@ import { cn } from "@/lib/utils"
 const events = [
   {
     id: 1,
-    title: "VALENTINE FEST",
-    date: "14 FEB",
+    title: "SOLITARIO SOLDADO",
+    date: "MAR 2025",
     time: "3:00 PM",
-    category: "URBANO",
-    image: "/electronic-music-event-dark-club-synthesizers-blue.jpg",
-    featured: true,
+    category: "HIP-HOP",
+    image: "/events/solitarioSoldado.jpg",
+    featured: false,
   },
   {
     id: 2,
-    title: "GOTAS DE RAP - UNDERGROUND",
-    date: "18 ABRIL",
+    title: "RAP DE LA MATA VOL. 2",
+    date: "JUN 2025",
     time: "3:00 PM",
-    category: "HIP - HOP",
-    image: "/art-exhibition-dark-gallery-dramatic-lighting-inst.jpg",
-    featured: false,
+    category: "HIP-HOP",
+    image: "/events/RAP DE LA MATA VOL2.jpg",
+    featured: true,
   },
   {
     id: 3,
     title: "YAWAR CROW",
-    date: "AGOST",
+    date: "AGO 2025",
     time: "3:00 PM",
-    category: "HIP - HOP",
+    category: "HIP-HOP",
     image: "/underground-dj-session-dark-nightclub-crowd-dancin.jpg",
     featured: false,
   },
 ]
 
 export function EventsSection() {
-  const [activeEvent, setActiveEvent] = useState(events[0])
+  const [activeEvent, setActiveEvent] = useState(events[1])
 
   return (
     <section id="eventos" className="relative py-24 overflow-hidden">
@@ -75,7 +75,7 @@ export function EventsSection() {
               <span className="inline-block px-3 py-1 text-xs uppercase tracking-widest bg-primary text-primary-foreground mb-4">
                 {activeEvent.category}
               </span>
-              <h3 className="font-serif text-3xl md:text-4xl text-foreground mb-4">{activeEvent.title}</h3>
+              <h3 className="font-urban text-3xl md:text-4xl text-foreground mb-4 uppercase tracking-wider">{activeEvent.title}</h3>
               <div className="flex flex-wrap gap-6 text-muted-foreground">
                 <span className="flex items-center gap-2 text-sm">
                   <Calendar className="w-4 h-4 text-primary" />
@@ -117,7 +117,7 @@ export function EventsSection() {
                 {/* Event Info */}
                 <div className="flex-1">
                   <span className="text-xs uppercase tracking-widest text-primary mb-1 block">{event.category}</span>
-                  <h4 className="font-serif text-xl text-foreground mb-2">{event.title}</h4>
+                  <h4 className="font-urban text-xl text-foreground mb-2 uppercase tracking-wide">{event.title}</h4>
                   <span className="text-sm text-muted-foreground flex items-center gap-2">
                     <Clock className="w-3 h-3" />
                     {event.time}

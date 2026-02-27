@@ -69,7 +69,7 @@ export function VenueSection() {
           {/* Space Info Overlay */}
           <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
             <div className="max-w-xl">
-              <h3 className="font-serif text-3xl md:text-5xl text-foreground mb-4">{activeSpace.name}</h3>
+              <h3 className="font-urban text-3xl md:text-5xl text-foreground mb-4 uppercase tracking-widest">{activeSpace.name}</h3>
               <p className="text-muted-foreground mb-4 leading-relaxed">{activeSpace.description}</p>
               <span className="text-sm uppercase tracking-widest text-primary">Capacidad: {activeSpace.capacity}</span>
             </div>
@@ -104,7 +104,7 @@ export function VenueSection() {
               />
               <span
                 className={cn(
-                  "absolute inset-0 flex items-center justify-center text-sm uppercase tracking-widest transition-colors",
+                  "absolute inset-0 flex items-center justify-center font-urban text-sm uppercase tracking-widest transition-colors",
                   activeSpace.id === space.id ? "text-foreground" : "text-muted-foreground group-hover:text-foreground",
                 )}
               >

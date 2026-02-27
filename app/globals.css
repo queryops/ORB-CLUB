@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -79,6 +80,7 @@
   --font-sans: "Space Grotesk", "Space Grotesk Fallback";
   --font-mono: "JetBrains Mono", "JetBrains Mono Fallback";
   --font-serif: "Playfair Display", "Playfair Display Fallback";
+  --font-urban: "Barlow Condensed", sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -128,6 +130,12 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Urban font utility */
+.font-urban {
+  font-family: var(--font-urban);
+  font-weight: 700;
 }
 
 /* Custom scrollbar for dark theme */

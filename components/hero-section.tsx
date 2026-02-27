@@ -15,11 +15,22 @@ function scrollToSection(id: string) {
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Pure dark gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-background to-black" />
+      {/* Background nightclub image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/dark-nightclub-interior-with-dramatic-blue-neon-li.jpg"
+          alt=""
+          fill
+          className="object-cover opacity-30"
+          priority
+        />
+      </div>
+
+      {/* Dark gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-background/80 to-black z-[1]" />
 
       {/* Ambient glow effects */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden z-[2]">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/8 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[80px] pointer-events-none" />
         <div className="absolute top-1/4 right-1/4 w-[200px] h-[200px] bg-primary/4 rounded-full blur-[60px] pointer-events-none" />
@@ -27,7 +38,7 @@ export function HeroSection() {
 
       {/* Grid overlay effect */}
       <div
-        className="absolute inset-0 opacity-[0.07]"
+        className="absolute inset-0 opacity-[0.07] z-[2]"
         style={{
           backgroundImage: `
             linear-gradient(to right, oklch(0.65 0.2 250 / 1) 1px, transparent 1px),
