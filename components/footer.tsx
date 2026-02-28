@@ -80,11 +80,11 @@ export function Footer() {
                 ORBCLUB@gmail.com
               </a>
               <a
-                href="tel:+573114466471"
+                href="tel:+573106081378"
                 className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Phone className="w-4 h-4 text-primary" />
-                +57 311 4466471
+                +57 310 6081378
               </a>
               <span className="flex items-start gap-3 text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-1" />

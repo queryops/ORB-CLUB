@@ -63,9 +63,9 @@
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
         e.preventDefault();
-        const headerHeight = header.offsetHeight;
-        const targetPosition = targetElement.offsetTop - headerHeight;
-        
+        const headerHeight = header ? header.offsetHeight : 80;
+        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+
         window.scrollTo({
           top: targetPosition,
           behavior: 'smooth'
@@ -145,7 +145,7 @@
         
         if (venueMainTitle) venueMainTitle.textContent = data.name;
         if (venueMainDescription) venueMainDescription.textContent = data.description;
-        if (venueMainCapacity) venueMainCapacity.textContent = 'Capacidad: ' + data.capacity;
+        if (venueMainCapacity) venueMainCapacity.textContent = data.capacity;
       });
     });
   }

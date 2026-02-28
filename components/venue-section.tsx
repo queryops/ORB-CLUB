@@ -10,7 +10,7 @@ const spaces = [
     name: "LA ORBITA",
     description:
       "El espacio principal con sistema de sonido Funktion-One y iluminación arquitectónica programable.",
-    capacity: "400 personas",
+    capacity: "Capacidad: 150 personas",
     image: "/dark-nightclub-main-hall-industrial-design-dramati.jpg",
   },
   {
@@ -24,14 +24,14 @@ const spaces = [
     id: 3,
     name: "Gallery",
     description: "Galería de arte contemporáneo con Decoracion Inmersiva.",
-    capacity: "150 personas",
+    capacity: "El spot perfecto para perder la noción del tiempo",
     image: "/modern-art-gallery-dark-walls-dramatic-spot-lighti.jpg",
   },
   {
     id: 4,
     name: "Rooftop",
     description: "Panorámica con bar y área lounge para eventos privados.",
-    capacity: "UNA EXPERIENCIA INOLVIDABLE",
+    capacity: "Luces Prendidas y Talento Activado en ORB Social Club",
     image: "/rooftop-bar-lounge-night-city-view-ambient-lightin.jpg",
   },
 ]
@@ -71,7 +71,7 @@ export function VenueSection() {
             <div className="max-w-xl">
               <h3 className="font-urban text-3xl md:text-5xl text-foreground mb-4 uppercase tracking-widest">{activeSpace.name}</h3>
               <p className="text-muted-foreground mb-4 leading-relaxed">{activeSpace.description}</p>
-              <span className="text-sm uppercase tracking-widest text-primary">Capacidad: {activeSpace.capacity}</span>
+              <span className="text-sm uppercase tracking-widest text-primary">{activeSpace.capacity}</span>
             </div>
           </div>
         </div>

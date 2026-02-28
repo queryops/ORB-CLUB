@@ -8,24 +8,33 @@ import { cn } from "@/lib/utils"
 const events = [
   {
     id: 1,
+    title: "ORB FREESTYLE BATTLES",
+    date: "01 MARZO",
+    time: "3:00 PM",
+    category: "HIP-HOP",
+    image: "/events/ORBFREESTYLEBATTLES.jpg",
+    featured: true,
+  },
+  {
+    id: 2,
     title: "SOLITARIO SOLDADO",
-    date: "MAR 2025",
+    date: "21 MARZO",
     time: "3:00 PM",
     category: "HIP-HOP",
     image: "/events/solitarioSoldado.jpg",
     featured: false,
   },
   {
-    id: 2,
+    id: 3,
     title: "RAP DE LA MATA VOL. 2",
-    date: "JUN 2025",
+    date: "18 ABRIL",
     time: "3:00 PM",
     category: "HIP-HOP",
     image: "/events/RAP DE LA MATA VOL2.jpg",
-    featured: true,
+    featured: false,
   },
   {
-    id: 3,
+    id: 4,
     title: "YAWAR CROW",
     date: "AGO 2025",
     time: "3:00 PM",
@@ -36,7 +45,7 @@ const events = [
 ]
 
 export function EventsSection() {
-  const [activeEvent, setActiveEvent] = useState(events[1])
+  const [activeEvent, setActiveEvent] = useState(events[0])
 
   return (
     <section id="eventos" className="relative py-24 overflow-hidden">

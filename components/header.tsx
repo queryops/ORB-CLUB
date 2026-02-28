@@ -6,11 +6,21 @@ import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navLinks = [
-  { href: "#artistas", label: "Artistas" },
-  { href: "#eventos", label: "Eventos" },
-  { href: "#espacio", label: "Espacio" },
-  { href: "#manifiesto", label: "Manifiesto" },
+  { id: "artistas", label: "Artistas" },
+  { id: "eventos", label: "Eventos" },
+  { id: "espacio", label: "Espacio" },
+  { id: "servicios", label: "Servicios" },
+  { id: "manifiesto", label: "Manifiesto" },
 ]
+
+function scrollToSection(id: string) {
+  const element = document.getElementById(id)
+  if (element) {
+    const headerHeight = 80
+    const top = element.getBoundingClientRect().top + window.scrollY - headerHeight
+    window.scrollTo({ top, behavior: "smooth" })
+  }
+}
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -43,20 +53,20 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors duration-300"
+              <button
+                key={link.id}
+                onClick={() => scrollToSection(link.id)}
+                className="text-sm uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors duration-300 bg-transparent border-none cursor-pointer"
               >
                 {link.label}
-              </Link>
+              </button>
             ))}
-            <Link
-              href="#contacto"
-              className="px-5 py-2 text-sm uppercase tracking-widest border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+            <button
+              onClick={() => scrollToSection("contacto")}
+              className="px-5 py-2 text-sm uppercase tracking-widest border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 bg-transparent cursor-pointer"
             >
               Reservar
-            </Link>
+            </button>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -74,22 +84,20 @@ export function Header() {
         >
           <nav className="flex flex-col gap-4 py-4 border-t border-border">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="text-sm uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+              <button
+                key={link.id}
+                onClick={() => { scrollToSection(link.id); setIsOpen(false) }}
+                className="text-sm uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors bg-transparent border-none cursor-pointer text-left"
               >
                 {link.label}
-              </Link>
+              </button>
             ))}
-            <Link
-              href="#contacto"
-              onClick={() => setIsOpen(false)}
-              className="px-5 py-2 text-sm uppercase tracking-widest border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-fit"
+            <button
+              onClick={() => { scrollToSection("contacto"); setIsOpen(false) }}
+              className="px-5 py-2 text-sm uppercase tracking-widest border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-fit bg-transparent cursor-pointer"
             >
               Reservar
-            </Link>
+            </button>
           </nav>
         </div>
       </div>

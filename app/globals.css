@@ -77,7 +77,7 @@
 }
 
 @theme inline {
-  --font-sans: "Space Grotesk", "Space Grotesk Fallback";
+  --font-sans: "Barlow Condensed", sans-serif;
   --font-mono: "JetBrains Mono", "JetBrains Mono Fallback";
   --font-serif: "Playfair Display", "Playfair Display Fallback";
   --font-urban: "Barlow Condensed", sans-serif;

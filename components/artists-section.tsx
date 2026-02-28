@@ -183,7 +183,7 @@ export function ArtistsSection() {
                   />
 
                   {/* Circular logo badge — top right corner */}
-                  <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-primary/80 bg-black shadow-[0_0_12px_oklch(0.65_0.2_250/0.5)] flex-shrink-0 z-10">
+                  <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-black bg-black flex-shrink-0 z-10">
                     <Image
                       src={artist.image || "/placeholder.svg"}
                       alt={`${artist.name} avatar`}
