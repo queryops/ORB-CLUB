@@ -98,7 +98,7 @@ export function Footer() {
                 +57 310 6081378
               </a>
               <a
-                href="https://www.google.com/maps/search/Carrera+16+%2314-53+San+Carlos+Zipaquir%C3%A1+Cundinamarca+Colombia"
+                href="https://maps.app.goo.gl/am1FpMgL3kQru9r76"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-3 text-muted-foreground hover:text-primary transition-colors"
