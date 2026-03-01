@@ -35,7 +35,7 @@ const events = [
   },
   {
     id: 4,
-    title: "YAWAR CROW",
+    title: "YAWAR CRU",
     date: "AGO 2025",
     time: "3:00 PM",
     category: "HIP-HOP",
@@ -133,15 +133,20 @@ export function EventsSection() {
                   </span>
                 </div>
 
-                {/* Arrow Indicator */}
-                <div
+                {/* Arrow — links to ORB Instagram */}
+                <a
+                  href="https://www.instagram.com/orb_clubsocial?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
                   className={cn(
                     "flex-shrink-0 self-center transition-all duration-300",
                     activeEvent.id === event.id ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2",
                   )}
+                  aria-label="Ver en Instagram"
                 >
                   <ArrowRight className="w-5 h-5 text-primary" />
-                </div>
+                </a>
               </div>
             ))}
           </div>

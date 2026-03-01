@@ -1676,6 +1676,16 @@ body {
   color: var(--primary);
 }
 
+.mini-map {
+  overflow: hidden;
+  border: 1px solid rgba(77, 157, 224, 0.2);
+  transition: border-color 0.3s ease;
+}
+
+.mini-map:hover {
+  border-color: rgba(77, 157, 224, 0.5);
+}
+
 .footer-bottom {
   margin-top: 4rem;
   padding-top: 2rem;

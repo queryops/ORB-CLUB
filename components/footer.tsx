@@ -1,5 +1,15 @@
 import Link from "next/link"
-import { Instagram, Music, Mail, MapPin, Phone } from "lucide-react"
+import { Music, Mail, MapPin, Phone } from "lucide-react"
+
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  )
+}
 
 function YoutubeIcon({ className }: { className?: string }) {
   return (
@@ -11,7 +21,8 @@ function YoutubeIcon({ className }: { className?: string }) {
 }
 
 const socialLinks = [
-  { icon: Instagram, href: "https://www.instagram.com/orb.music00?igsh=MXkwM2R6emVkbzMxOQ==", label: "Instagram" },
+  { icon: InstagramIcon, href: "https://www.instagram.com/orb_clubsocial?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", label: "Instagram ORB Club" },
+  { icon: InstagramIcon, href: "https://www.instagram.com/orb.music00?igsh=MXkwM2R6emVkbzMxOQ==", label: "Instagram ORB Music" },
   { icon: Music, href: "https://open.spotify.com/artist/6Bl6scWVQQ8F14lHmZ8Bqo?si=yPie65mFQF-Yf8OAQGFv7A", label: "Spotify" },
   { icon: YoutubeIcon, href: "https://youtube.com/@orbmusic-pk9ii?si=DsXFButiyBEmsvz0", label: "YouTube" },
 ]
@@ -86,12 +97,29 @@ export function Footer() {
                 <Phone className="w-4 h-4 text-primary" />
                 +57 310 6081378
               </a>
-              <span className="flex items-start gap-3 text-muted-foreground">
+              <a
+                href="https://www.google.com/maps/search/Carrera+16+%2314-53+San+Carlos+Zipaquir%C3%A1+Cundinamarca+Colombia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 text-muted-foreground hover:text-primary transition-colors"
+              >
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
-                Carrera 16 # 14 - 53
-                <br />
-                San Carlos, Zipaquirá, Cundinamarca
-              </span>
+                <span>
+                  Carrera 16 # 14 - 53<br />
+                  San Carlos, Zipaquirá, Cundinamarca
+                </span>
+              </a>
+              {/* Mini map embed */}
+              <div className="mt-2 overflow-hidden border border-primary/20 hover:border-primary/50 transition-colors">
+                <iframe
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=-74.0145%2C5.0180%2C-73.9945%2C5.0310&layer=mapnik&marker=5.0245%2C-74.0045"
+                  width="100%"
+                  height="120"
+                  style={{ border: 0, display: "block", filter: "invert(90%) hue-rotate(180deg)" }}
+                  loading="lazy"
+                  title="Ubicación ORB Social Club"
+                />
+              </div>
             </div>
           </div>
         </div>
