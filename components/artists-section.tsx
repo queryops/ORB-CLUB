@@ -109,7 +109,7 @@ const artists: Artist[] = [
     id: 6,
     name: "CAM-PHOTOS",
     discipline: "FOTÓGRAFA",
-    photo: "/artistas/CAM-PHOTOS.jpg",
+    photo: "/artistas/CAM-PHOTOS.jpeg",
     image: "/CAM.png",
     description: "Fotografía profesional. Capturando momentos que definen la escena.",
     social: {
@@ -141,7 +141,7 @@ export function ArtistsSection() {
             <p className="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-primary mb-2 md:mb-4">
               Talento Emergente
             </p>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-foreground">Artistas</h2>
+            <h2 className="font-urban text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-foreground uppercase tracking-wide">Artistas</h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-sm md:max-w-md leading-relaxed">
             Descubre a los creadores que están definiendo el sonido y la estética de una nueva generación.
@@ -198,7 +198,7 @@ export function ArtistsSection() {
                     <p className="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest text-primary mb-0.5 sm:mb-1 leading-none">
                       {artist.discipline}
                     </p>
-                    <h3 className="font-serif text-sm sm:text-base md:text-lg lg:text-xl text-white leading-tight font-medium">
+                    <h3 className="font-urban text-sm sm:text-base md:text-lg lg:text-xl text-white leading-tight font-bold uppercase tracking-wide">
                       {artist.name}
                     </h3>
 

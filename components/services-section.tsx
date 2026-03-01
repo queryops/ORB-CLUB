@@ -50,9 +50,9 @@ export function ServicesSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <p className="text-sm uppercase tracking-[0.3em] text-primary mb-4">Lo que ofrecemos</p>
-          <h2 className="font-serif text-4xl md:text-6xl text-foreground mb-6">
+          <h2 className="font-urban text-4xl md:text-6xl text-foreground mb-6 uppercase tracking-wide">
             Nuestros{" "}
-            <span className="text-primary italic">Servicios</span>
+            <span className="text-primary">Servicios</span>
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
             ORB Social Club es más que un espacio — es una plataforma viva para crear, ensayar y brillar.

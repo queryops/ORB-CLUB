@@ -46,7 +46,7 @@ export function ManifestoSection() {
           <p className="text-sm uppercase tracking-[0.3em] text-primary mb-8">Nuestro Manifiesto</p>
 
           <blockquote
-            className={`font-serif text-3xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-12 transition-all duration-1000 ${
+            className={`font-urban text-3xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-12 font-bold uppercase tracking-wide transition-all duration-1000 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >

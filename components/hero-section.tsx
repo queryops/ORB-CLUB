@@ -67,9 +67,9 @@ export function HeroSection() {
           Club Social para Artistas Emergentes
         </p>
 
-        <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-light text-foreground mb-6 md:mb-8 tracking-tight leading-[1.1]">
+        <h1 className="font-urban text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 md:mb-8 tracking-wide leading-[1.05] uppercase">
           <span className="block">Donde el Arte</span>
-          <span className="block text-primary italic">Cobra Vida</span>
+          <span className="block text-primary">Cobra Vida</span>
         </h1>
 
         <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-lg mx-auto mb-8 md:mb-12 leading-relaxed px-2">

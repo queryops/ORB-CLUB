@@ -45,7 +45,7 @@ export function VenueSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <p className="text-sm uppercase tracking-[0.3em] text-primary mb-4">El Espacio</p>
-          <h2 className="font-serif text-4xl md:text-6xl text-foreground mb-6">
+          <h2 className="font-urban text-4xl md:text-6xl text-foreground mb-6 uppercase tracking-wide">
              UNETE A LA ORBITA QUE ESTA TRANSFORMANDO . 
             <br />
             <span className="text-primary italic">ZIPAQUIRA Y EL MUNDO</span>

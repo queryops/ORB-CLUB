@@ -56,7 +56,7 @@ export function EventsSection() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
           <div>
             <p className="text-sm uppercase tracking-[0.3em] text-primary mb-4">Calendario</p>
-            <h2 className="font-serif text-4xl md:text-6xl text-foreground">Próximos Eventos</h2>
+            <h2 className="font-urban text-4xl md:text-6xl text-foreground uppercase tracking-wide">Próximos Eventos</h2>
           </div>
           <a
             href="#"
