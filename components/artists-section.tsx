@@ -3,6 +3,8 @@
 import { useState } from "react"
 import Image from "next/image"
 import { Music, ExternalLink } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { imgSrc } from "@/lib/image-path"
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -22,8 +24,6 @@ function YoutubeIcon({ className }: { className?: string }) {
     </svg>
   )
 }
-import { cn } from "@/lib/utils"
-import { imgSrc } from "@/lib/image-path"
 
 type ArtistSocial = {
   instagram?: string
@@ -122,13 +122,135 @@ const artists: Artist[] = [
     name: "QueryOps",
     discipline: "DISEÑO · DESARROLLO WEB",
     photo: "/artistas/QueryOPS.webp",
-    image: "/musician-producer-in-dark-studio-with-ambient-ligh.webp",
+    image: "/logo-blanco.webp",
     description: "Diseño web y desarrollo de aplicaciones digitales.",
     social: {
-      instagram: "https://www.instagram.com/queryops?igsh=MTV0c251YjJ0cG9yZw==",
+      instagram: "https://www.instagram.com/fernandovega_77",
     },
   },
 ]
+
+// ─── Artist Card ──────────────────────────────────────────────────────────────
+
+function ArtistCard({
+  artist,
+  isActive,
+  onActivate,
+  sizes = "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw",
+}: {
+  artist: Artist
+  isActive: boolean
+  onActivate: (id: number | null) => void
+  sizes?: string
+}) {
+  return (
+    <div
+      className="group relative overflow-hidden cursor-pointer select-none"
+      onMouseEnter={() => onActivate(artist.id)}
+      onMouseLeave={() => onActivate(null)}
+      onClick={() => onActivate(isActive ? null : artist.id)}
+    >
+      <div className="relative aspect-[3/4] overflow-hidden bg-black border border-primary/20">
+        <Image
+          src={imgSrc(artist.photo)}
+          alt={artist.name}
+          fill
+          className={cn(
+            "object-cover object-top transition-all duration-700 ease-out",
+            isActive ? "scale-110" : "scale-100",
+          )}
+          sizes={sizes}
+        />
+
+        {/* Dark gradient overlay */}
+        <div
+          className={cn(
+            "absolute inset-0 transition-opacity duration-500",
+            "bg-gradient-to-t from-black via-black/40 to-black/10",
+            isActive ? "opacity-85" : "opacity-60",
+          )}
+        />
+
+        {/* Circular logo badge */}
+        <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-black bg-black flex-shrink-0 z-10">
+          <Image
+            src={imgSrc(artist.image || "/placeholder.svg")}
+            alt={`${artist.name} avatar`}
+            fill
+            className="object-cover"
+            sizes="48px"
+          />
+        </div>
+
+        {/* Bottom content */}
+        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
+          <p className="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest text-primary mb-0.5 sm:mb-1 leading-none">
+            {artist.discipline}
+          </p>
+          <h3 className="font-urban text-sm sm:text-base md:text-lg lg:text-xl text-white leading-tight font-bold uppercase tracking-wide">
+            {artist.name}
+          </h3>
+
+          {/* Description + social — visible on hover/tap */}
+          <div
+            className={cn(
+              "overflow-hidden transition-all duration-500 ease-in-out",
+              isActive ? "max-h-28 opacity-100 mt-2" : "max-h-0 opacity-0 mt-0",
+            )}
+          >
+            <p className="text-[10px] sm:text-xs text-gray-300 leading-relaxed mb-2">
+              {artist.description}
+            </p>
+            <div className="flex gap-2.5 sm:gap-3">
+              {artist.social.instagram && (
+                <a href={artist.social.instagram} onClick={(e) => e.stopPropagation()}
+                  target="_blank" rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary active:text-primary transition-colors"
+                  aria-label="Instagram">
+                  <InstagramIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </a>
+              )}
+              {artist.social.spotify && (
+                <a href={artist.social.spotify} onClick={(e) => e.stopPropagation()}
+                  target="_blank" rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary active:text-primary transition-colors"
+                  aria-label="Spotify">
+                  <Music className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </a>
+              )}
+              {artist.social.youtube && (
+                <a href={artist.social.youtube} onClick={(e) => e.stopPropagation()}
+                  target="_blank" rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary active:text-primary transition-colors"
+                  aria-label="YouTube">
+                  <YoutubeIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </a>
+              )}
+              {artist.social.website && (
+                <a href={artist.social.website} onClick={(e) => e.stopPropagation()}
+                  target="_blank" rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary active:text-primary transition-colors"
+                  aria-label="Website">
+                  <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom accent line */}
+        <div
+          className={cn(
+            "absolute bottom-0 left-0 right-0 h-0.5 bg-primary transition-opacity duration-500",
+            isActive ? "opacity-100" : "opacity-0",
+          )}
+        />
+      </div>
+    </div>
+  )
+}
+
+// ─── Section ─────────────────────────────────────────────────────────────────
 
 export function ArtistsSection() {
   const [activeId, setActiveId] = useState<number | null>(null)
@@ -149,136 +271,45 @@ export function ArtistsSection() {
           </p>
         </div>
 
-        {/* Artists Grid — 2 cols mobile, 3 tablet, 4 desktop */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
-          {artists.map((artist) => {
-            const isActive = activeId === artist.id
-            return (
-              <div
+        {/* ── Desktop lg+: 3 arriba / 4 abajo ── */}
+        <div className="hidden lg:block space-y-5">
+          {/* Row 1: RAFA, JHOEL D, MAC — 3 columns */}
+          <div className="grid grid-cols-3 gap-5">
+            {artists.slice(0, 3).map((artist) => (
+              <ArtistCard
                 key={artist.id}
-                className="group relative overflow-hidden cursor-pointer select-none"
-                onMouseEnter={() => setActiveId(artist.id)}
-                onMouseLeave={() => setActiveId(null)}
-                onClick={() => setActiveId(isActive ? null : artist.id)}
-              >
-                {/* Main Artist Photo */}
-                <div className="relative aspect-[3/4] overflow-hidden bg-black border border-primary/20">
-                  <Image
-                    src={imgSrc(artist.photo)}
-                    alt={artist.name}
-                    fill
-                    className={cn(
-                      "object-cover object-top transition-all duration-700 ease-out",
-                      isActive ? "scale-110" : "scale-100",
-                    )}
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  />
+                artist={artist}
+                isActive={activeId === artist.id}
+                onActivate={setActiveId}
+                sizes="33vw"
+              />
+            ))}
+          </div>
+          {/* Row 2: TEBAN, JABERTH, CAM-PHOTOS, QueryOps — 4 columns */}
+          <div className="grid grid-cols-4 gap-5">
+            {artists.slice(3).map((artist) => (
+              <ArtistCard
+                key={artist.id}
+                artist={artist}
+                isActive={activeId === artist.id}
+                onActivate={setActiveId}
+                sizes="25vw"
+              />
+            ))}
+          </div>
+        </div>
 
-                  {/* Dark gradient overlay */}
-                  <div
-                    className={cn(
-                      "absolute inset-0 transition-opacity duration-500",
-                      "bg-gradient-to-t from-black via-black/40 to-black/10",
-                      isActive ? "opacity-85" : "opacity-60",
-                    )}
-                  />
-
-                  {/* Circular logo badge — top right corner */}
-                  <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-black bg-black flex-shrink-0 z-10">
-                    <Image
-                      src={imgSrc(artist.image || "/placeholder.svg")}
-                      alt={`${artist.name} avatar`}
-                      fill
-                      className="object-cover"
-                      sizes="48px"
-                    />
-                  </div>
-
-                  {/* Bottom content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
-                    <p className="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest text-primary mb-0.5 sm:mb-1 leading-none">
-                      {artist.discipline}
-                    </p>
-                    <h3 className="font-urban text-sm sm:text-base md:text-lg lg:text-xl text-white leading-tight font-bold uppercase tracking-wide">
-                      {artist.name}
-                    </h3>
-
-                    {/* Description + social — visible on hover/tap */}
-                    <div
-                      className={cn(
-                        "overflow-hidden transition-all duration-500 ease-in-out",
-                        isActive ? "max-h-28 opacity-100 mt-2" : "max-h-0 opacity-0 mt-0",
-                      )}
-                    >
-                      <p className="text-[10px] sm:text-xs text-gray-300 leading-relaxed mb-2">
-                        {artist.description}
-                      </p>
-
-                      {/* Social Icons */}
-                      <div className="flex gap-2.5 sm:gap-3">
-                        {artist.social.instagram && (
-                          <a
-                            href={artist.social.instagram}
-                            onClick={(e) => e.stopPropagation()}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-primary active:text-primary transition-colors"
-                            aria-label="Instagram"
-                          >
-                            <InstagramIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                          </a>
-                        )}
-                        {artist.social.spotify && (
-                          <a
-                            href={artist.social.spotify}
-                            onClick={(e) => e.stopPropagation()}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-primary active:text-primary transition-colors"
-                            aria-label="Spotify"
-                          >
-                            <Music className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                          </a>
-                        )}
-                        {artist.social.youtube && (
-                          <a
-                            href={artist.social.youtube}
-                            onClick={(e) => e.stopPropagation()}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-primary active:text-primary transition-colors"
-                            aria-label="YouTube"
-                          >
-                            <YoutubeIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                          </a>
-                        )}
-                        {artist.social.website && (
-                          <a
-                            href={artist.social.website}
-                            onClick={(e) => e.stopPropagation()}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-primary active:text-primary transition-colors"
-                            aria-label="Website"
-                          >
-                            <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Bottom accent line */}
-                  <div
-                    className={cn(
-                      "absolute bottom-0 left-0 right-0 h-0.5 bg-primary transition-opacity duration-500",
-                      isActive ? "opacity-100" : "opacity-0",
-                    )}
-                  />
-                </div>
-              </div>
-            )
-          })}
+        {/* ── Mobile / Tablet: 2 cols → 3 cols ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5 lg:hidden">
+          {artists.map((artist) => (
+            <ArtistCard
+              key={artist.id}
+              artist={artist}
+              isActive={activeId === artist.id}
+              onActivate={setActiveId}
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            />
+          ))}
         </div>
       </div>
     </section>

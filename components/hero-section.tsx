@@ -22,7 +22,7 @@ export function HeroSection() {
           src={imgSrc("/dark-nightclub-interior-with-dramatic-blue-neon-li.webp")}
           alt=""
           fill
-          className="object-cover opacity-30"
+          className="object-cover opacity-55"
           priority
         />
       </div>
@@ -55,8 +55,8 @@ export function HeroSection() {
         <div className="mb-4 md:mb-6">
           <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 mx-auto drop-shadow-[0_0_40px_oklch(0.65_0.2_250/0.4)]">
             <Image
-              src={imgSrc("/ORB.png")}
-              alt="ORB Logo"
+              src={imgSrc("/apple-icon.png")}
+              alt="ORB Club Social Logo"
               fill
               className="object-contain"
               priority

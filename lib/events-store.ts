@@ -28,13 +28,14 @@ export interface PurchaseRequest {
   buyerPhone: string
   status: 'sin_confirmar' | 'pago' | 'cancelado'
   requestedAt: string
+  quantity: number
 }
 
 // ─── Constants ──────────────────────────────────────────────────────────────
 
 const EVENTS_KEY = 'orb_events'
 const PURCHASES_KEY = 'orb_purchases'
-export const WHATSAPP_NUMBER = '573106081378'
+export const WHATSAPP_NUMBER = '573177920477'
 
 export const EVENT_CATEGORIES = [
   'HIP-HOP',
@@ -131,13 +132,12 @@ export function getEvents(): OrbEvent[] {
   }
 }
 
-/** Returns only events that are active AND have not passed their datetime */
+/** Returns only events that are active AND have not passed their datetime, sorted nearest first */
 export function getActiveEvents(): OrbEvent[] {
   const now = new Date()
-  return getEvents().filter((e) => {
-    if (!e.active) return false
-    return new Date(e.eventDatetime) > now
-  })
+  return getEvents()
+    .filter((e) => e.active && new Date(e.eventDatetime) > now)
+    .sort((a, b) => new Date(a.eventDatetime).getTime() - new Date(b.eventDatetime).getTime())
 }
 
 export function saveEvent(event: OrbEvent): void {

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { X, User, Hash, Phone, CheckCircle, MessageCircle } from "lucide-react"
+import { X, User, Hash, Phone, CheckCircle, MessageCircle, Minus, Plus } from "lucide-react"
 import { type OrbEvent, savePurchase, generateId, formatEventDate, WHATSAPP_NUMBER } from "@/lib/events-store"
 
 interface TicketModalProps {
@@ -9,11 +9,24 @@ interface TicketModalProps {
   onClose: () => void
 }
 
+function parsePrice(price: string): number {
+  const digits = price.replace(/[^0-9]/g, "")
+  return digits ? parseInt(digits, 10) : 0
+}
+
+function formatCOP(amount: number): string {
+  return `$${amount.toLocaleString("es-CO")}`
+}
+
 export function TicketModal({ event, onClose }: TicketModalProps) {
   const [form, setForm] = useState({ name: "", cedula: "", phone: "" })
+  const [quantity, setQuantity] = useState(1)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submitted, setSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+
+  const unitPrice = parsePrice(event.price)
+  const totalPrice = unitPrice * quantity
 
   function validate() {
     const e: Record<string, string> = {}
@@ -36,7 +49,9 @@ export function TicketModal({ event, onClose }: TicketModalProps) {
       `🎵 *Evento:* ${event.title}\n` +
       `📅 *Fecha:* ${dateStr}\n` +
       `🕐 *Hora:* ${event.timeDisplay}\n` +
-      `💰 *Precio:* ${event.price}\n` +
+      `💰 *Precio unitario:* ${event.price}\n` +
+      `🎟️ *Cantidad:* ${quantity} entrada${quantity > 1 ? "s" : ""}\n` +
+      (unitPrice > 0 ? `💵 *Total:* ${formatCOP(totalPrice)}\n` : "") +
       `📍 *Lugar:* ${event.venue}, Zipaquirá\n\n` +
       `━━━━━━━━━━━━━━━━━━\n` +
       `👤 *Datos del comprador:*\n` +
@@ -44,19 +59,19 @@ export function TicketModal({ event, onClose }: TicketModalProps) {
       `Cédula: ${form.cedula.trim()}\n` +
       (form.phone.trim() ? `Teléfono: ${form.phone.trim()}\n` : "") +
       `\n━━━━━━━━━━━━━━━━━━\n` +
-      `Por favor envía el comprobante de pago para confirmar tu boleta. 🙏\n\n` +
+      `Por favor envía el comprobante de pago para confirmar tu${quantity > 1 ? "s" : ""} boleta${quantity > 1 ? "s" : ""}. 🙏\n\n` +
       `_ORB Club Social — Zipaquirá_`
     )
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length) { setErrors(errs); return }
 
     setIsLoading(true)
 
-    // Save request locally
+    // Save one purchase record per entry (or store quantity in one record)
     savePurchase({
       id: generateId(),
       eventId: event.id,
@@ -66,12 +81,12 @@ export function TicketModal({ event, onClose }: TicketModalProps) {
       buyerPhone: form.phone.trim(),
       status: "sin_confirmar",
       requestedAt: new Date().toISOString(),
+      quantity,
     })
 
     setIsLoading(false)
     setSubmitted(true)
 
-    // Open WhatsApp after short delay
     setTimeout(() => {
       const msg = buildMessage()
       window.open(
@@ -90,29 +105,20 @@ export function TicketModal({ event, onClose }: TicketModalProps) {
       aria-label={`Comprar boleta para ${event.title}`}
     >
       {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/85 backdrop-blur-sm"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" onClick={onClose} />
 
       {/* Panel */}
       <div className="relative z-10 w-full max-w-md bg-[#0f0f0f] border border-[#4d9de0]/20 shadow-2xl shadow-black/60 max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-start justify-between p-6 border-b border-[#4d9de0]/10 sticky top-0 bg-[#0f0f0f] z-10">
           <div>
-            <h2
-              className="text-lg font-bold text-white uppercase tracking-widest"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-            >
+            <h2 className="text-lg font-bold text-white uppercase tracking-widest"
+                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
               Comprar Boleta
             </h2>
             <p className="text-[#4d9de0] text-xs mt-0.5 truncate max-w-[280px]">{event.title}</p>
           </div>
-          <button
-            onClick={onClose}
-            className="text-[#555] hover:text-white transition-colors p-1 flex-shrink-0"
-            aria-label="Cerrar"
-          >
+          <button onClick={onClose} className="text-[#555] hover:text-white transition-colors p-1 flex-shrink-0" aria-label="Cerrar">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -121,14 +127,51 @@ export function TicketModal({ event, onClose }: TicketModalProps) {
           {!submitted ? (
             <>
               {/* Event summary */}
-              <div className="mb-6 p-4 bg-[#4d9de0]/5 border border-[#4d9de0]/15 space-y-2">
+              <div className="mb-5 p-4 bg-[#4d9de0]/5 border border-[#4d9de0]/15 space-y-2">
                 <Row label="Fecha" value={formatEventDate(event.eventDatetime, { day: "numeric", month: "long", year: "numeric" })} />
                 <Row label="Hora" value={event.timeDisplay} />
                 <Row label="Lugar" value={`${event.venue}, Zipaquirá`} />
                 <div className="flex justify-between pt-1 border-t border-[#4d9de0]/10">
-                  <span className="text-xs text-[#555] uppercase tracking-wider">Precio</span>
+                  <span className="text-xs text-[#555] uppercase tracking-wider">Precio unitario</span>
                   <span className="text-[#4d9de0] font-bold text-lg">{event.price}</span>
                 </div>
+              </div>
+
+              {/* Quantity selector */}
+              <div className="mb-5">
+                <label className="block text-[10px] uppercase tracking-[0.2em] text-[#777] mb-2">
+                  Número de Entradas
+                </label>
+                <div className="flex items-center gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                    className="w-10 h-10 flex items-center justify-center border border-[#4d9de0]/20 text-white hover:border-[#4d9de0] hover:bg-[#4d9de0]/10 transition-colors disabled:opacity-40"
+                    disabled={quantity <= 1}
+                    aria-label="Reducir cantidad"
+                  >
+                    <Minus className="w-4 h-4" />
+                  </button>
+                  <div className="flex-1 text-center">
+                    <span className="text-2xl font-bold text-white tabular-nums">{quantity}</span>
+                    <span className="text-[#555] text-xs ml-2">entrada{quantity > 1 ? "s" : ""}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setQuantity((q) => Math.min(10, q + 1))}
+                    className="w-10 h-10 flex items-center justify-center border border-[#4d9de0]/20 text-white hover:border-[#4d9de0] hover:bg-[#4d9de0]/10 transition-colors disabled:opacity-40"
+                    disabled={quantity >= 10}
+                    aria-label="Aumentar cantidad"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+                {unitPrice > 0 && quantity > 1 && (
+                  <div className="mt-3 p-3 bg-[#4d9de0]/5 border border-[#4d9de0]/15 flex justify-between items-center">
+                    <span className="text-xs text-[#555] uppercase tracking-wider">Total a pagar</span>
+                    <span className="text-[#4d9de0] font-bold text-xl">{formatCOP(totalPrice)}</span>
+                  </div>
+                )}
               </div>
 
               {/* Form */}
@@ -141,9 +184,7 @@ export function TicketModal({ event, onClose }: TicketModalProps) {
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#444]" />
                     <input
-                      type="text"
-                      value={form.name}
-                      autoComplete="name"
+                      type="text" value={form.name} autoComplete="name"
                       onChange={(e) => { setForm((f) => ({ ...f, name: e.target.value })); setErrors((er) => ({ ...er, name: "" })) }}
                       placeholder="Tu nombre completo"
                       className="w-full pl-10 pr-4 py-3 bg-[#0a0a0a] border border-[#4d9de0]/15 focus:border-[#4d9de0] text-white placeholder:text-[#333] outline-none transition-colors text-sm"
@@ -160,12 +201,9 @@ export function TicketModal({ event, onClose }: TicketModalProps) {
                   <div className="relative">
                     <Hash className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#444]" />
                     <input
-                      type="text"
-                      inputMode="numeric"
-                      value={form.cedula}
+                      type="text" inputMode="numeric" value={form.cedula}
                       onChange={(e) => { setForm((f) => ({ ...f, cedula: e.target.value.replace(/\D/g, "") })); setErrors((er) => ({ ...er, cedula: "" })) }}
-                      placeholder="Número de cédula"
-                      maxLength={12}
+                      placeholder="Número de cédula" maxLength={12}
                       className="w-full pl-10 pr-4 py-3 bg-[#0a0a0a] border border-[#4d9de0]/15 focus:border-[#4d9de0] text-white placeholder:text-[#333] outline-none transition-colors text-sm font-mono"
                     />
                   </div>
@@ -180,9 +218,7 @@ export function TicketModal({ event, onClose }: TicketModalProps) {
                   <div className="relative">
                     <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#444]" />
                     <input
-                      type="tel"
-                      value={form.phone}
-                      autoComplete="tel"
+                      type="tel" value={form.phone} autoComplete="tel"
                       onChange={(e) => { setForm((f) => ({ ...f, phone: e.target.value })); setErrors((er) => ({ ...er, phone: "" })) }}
                       placeholder="+57 300 000 0000"
                       className="w-full pl-10 pr-4 py-3 bg-[#0a0a0a] border border-[#4d9de0]/15 focus:border-[#4d9de0] text-white placeholder:text-[#333] outline-none transition-colors text-sm"
@@ -191,17 +227,14 @@ export function TicketModal({ event, onClose }: TicketModalProps) {
                   {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
                 </div>
 
-                {/* Note */}
                 <p className="text-[10px] text-[#444] leading-relaxed bg-[#111] border border-[#1a1a1a] p-3">
                   Al continuar, se abrirá WhatsApp con tu solicitud pre-cargada.
                   <strong className="text-[#666]"> Debes ENVIAR el mensaje</strong> para que tu solicitud quede registrada.
                   El equipo ORB te confirmará el pago por ese medio.
                 </p>
 
-                {/* Submit */}
                 <button
-                  type="submit"
-                  disabled={isLoading}
+                  type="submit" disabled={isLoading}
                   className="w-full flex items-center justify-center gap-3 py-4 bg-[#25D366] hover:bg-[#20bd5a] active:bg-[#1aaa50] text-white font-bold uppercase tracking-[0.15em] transition-colors disabled:opacity-60 text-sm"
                 >
                   {isLoading ? (
@@ -212,49 +245,39 @@ export function TicketModal({ event, onClose }: TicketModalProps) {
                   ) : (
                     <>
                       <MessageCircle className="w-5 h-5" />
-                      Solicitar por WhatsApp
+                      Solicitar {quantity > 1 ? `${quantity} Entradas` : "por WhatsApp"}
                     </>
                   )}
                 </button>
               </form>
             </>
           ) : (
-            /* ── Success state */
             <div className="text-center py-8">
               <div className="w-16 h-16 bg-[#25D366]/15 border border-[#25D366]/30 rounded-full flex items-center justify-center mx-auto mb-5">
                 <CheckCircle className="w-8 h-8 text-[#25D366]" />
               </div>
-              <h3
-                className="text-xl font-bold text-white uppercase tracking-widest mb-3"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-              >
+              <h3 className="text-xl font-bold text-white uppercase tracking-widest mb-3"
+                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
                 ¡Solicitud Enviada!
               </h3>
               <p className="text-[#666] text-sm mb-2 leading-relaxed">
-                Se ha abierto WhatsApp con tu solicitud.
+                Se ha abierto WhatsApp con tu solicitud de {quantity} entrada{quantity > 1 ? "s" : ""}.
               </p>
               <p className="text-[#555] text-xs mb-8 leading-relaxed">
                 Envía el mensaje y espera confirmación del equipo ORB. Una vez realizado el pago,
-                recibirás la confirmación de tu boleta.
+                recibirás la confirmación de tu{quantity > 1 ? "s" : ""} boleta{quantity > 1 ? "s" : ""}.
               </p>
               <div className="space-y-3">
                 <button
                   onClick={() => {
-                    window.open(
-                      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildMessage())}`,
-                      "_blank",
-                      "noopener,noreferrer"
-                    )
+                    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildMessage())}`, "_blank", "noopener,noreferrer")
                   }}
                   className="w-full flex items-center justify-center gap-2 py-3 bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] text-sm uppercase tracking-wider hover:bg-[#25D366]/20 transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   Abrir WhatsApp de nuevo
                 </button>
-                <button
-                  onClick={onClose}
-                  className="w-full py-3 border border-[#222] text-[#555] text-sm uppercase tracking-wider hover:text-white hover:border-[#444] transition-colors"
-                >
+                <button onClick={onClose} className="w-full py-3 border border-[#222] text-[#555] text-sm uppercase tracking-wider hover:text-white hover:border-[#444] transition-colors">
                   Cerrar
                 </button>
               </div>

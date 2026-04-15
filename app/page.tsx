@@ -6,6 +6,8 @@ import { EventsSection } from "@/components/events-section"
 import { VenueSection } from "@/components/venue-section"
 import { ServicesSection } from "@/components/services-section"
 import { ManifestoSection } from "@/components/manifesto-section"
+import { FaqSection } from "@/components/faq-section"
+import { FloatingButtons } from "@/components/floating-buttons"
 import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
@@ -109,8 +111,10 @@ export default function Home() {
         <VenueSection />
         <ServicesSection />
         <ManifestoSection />
+        <FaqSection />
         <Footer />
       </main>
+      <FloatingButtons />
     </>
   )
 }

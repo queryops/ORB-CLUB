@@ -1,12 +1,11 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const siteUrl = "https://orbclubsocial.github.io"
+const siteUrl = "https://orbclubsocial.github.io/ORB-CLUB"
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL("https://orbclubsocial.github.io"),
   title: {
     default: "ORB Club Social | Club para Artistas Emergentes — Zipaquirá",
     template: "%s | ORB Club Social",
@@ -30,13 +29,13 @@ export const metadata: Metadata = {
     siteName: "ORB Club Social",
     title: "ORB Club Social | Donde el Arte Cobra Vida — Zipaquirá",
     description: "Club social para artistas emergentes en Zipaquirá. Hip-hop, freestyle, música en vivo y eventos culturales.",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "ORB Club Social — Zipaquirá" }],
+    images: [{ url: "/ORB-CLUB/og-image.jpg", width: 1200, height: 630, alt: "ORB Club Social — Zipaquirá" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "ORB Club Social | Club para Artistas Emergentes",
     description: "El espacio cultural en Zipaquirá donde los artistas emergentes encuentran su escenario.",
-    images: ["/og-image.jpg"],
+    images: ["/ORB-CLUB/og-image.jpg"],
   },
   robots: {
     index: true, follow: true,
@@ -46,11 +45,11 @@ export const metadata: Metadata = {
   category: "entertainment",
   icons: {
     icon: [
-      { url: "/icon-light-32x32.png", media: "(prefers-color-scheme: light)" },
-      { url: "/icon-dark-32x32.png", media: "(prefers-color-scheme: dark)" },
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/ORB-CLUB/apple-icon.png", sizes: "32x32", type: "image/png" },
+      { url: "/ORB-CLUB/apple-icon.png", sizes: "64x64", type: "image/png" },
     ],
-    apple: "/apple-icon.png",
+    apple: "/ORB-CLUB/apple-icon.png",
+    shortcut: "/ORB-CLUB/apple-icon.png",
   },
 }
 
@@ -77,7 +76,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="antialiased bg-background text-foreground">
         {children}
-        <Analytics />
       </body>
     </html>
   )

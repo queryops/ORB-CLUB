@@ -368,23 +368,90 @@ function EditDateModal({ event, onSave, onClose }: { event: OrbEvent; onSave: (e
   )
 }
 
-// ─── Confirm Dialog ──────────────────────────────────────────────────────────
+// ─── Delete with Password Verification ───────────────────────────────────────
 
-function ConfirmModal({ message, onConfirm, onClose }: { message: string; onConfirm: () => void; onClose: () => void }) {
+function DeleteWithPasswordModal({
+  eventTitle,
+  onConfirm,
+  onClose,
+}: {
+  eventTitle: string
+  onConfirm: () => void
+  onClose: () => void
+}) {
+  const [password, setPassword] = useState("")
+  const [showPw, setShowPw] = useState(false)
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  const handleConfirm = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!password.trim()) { setError("Ingresa tu contraseña"); return }
+    setLoading(true)
+    const { login } = await import("@/lib/auth")
+    const ok = await login(ADMIN_USERNAME, password)
+    setLoading(false)
+    if (ok) {
+      onConfirm()
+    } else {
+      setError("Contraseña incorrecta. Inténtalo de nuevo.")
+      setPassword("")
+    }
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/80" onClick={onClose} />
-      <div className="relative z-10 w-full max-w-sm bg-[#111] border border-red-500/30 p-6 text-center">
+      <div className="relative z-10 w-full max-w-sm bg-[#111] border border-red-500/30 p-6">
         <AlertCircle className="w-10 h-10 text-red-400 mx-auto mb-4" />
-        <p className="text-white text-sm mb-6 leading-relaxed">{message}</p>
-        <div className="flex gap-3">
-          <button onClick={onConfirm} className="flex-1 py-3 bg-red-500 hover:bg-red-600 text-white text-sm font-bold uppercase tracking-widest transition-colors">
-            Confirmar
-          </button>
-          <button onClick={onClose} className="flex-1 py-3 border border-[#333] text-[#666] text-sm uppercase tracking-widest hover:text-white transition-colors">
-            Cancelar
-          </button>
-        </div>
+        <h3 className="text-white text-base font-bold uppercase tracking-widest text-center mb-2"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
+          Eliminar Evento
+        </h3>
+        <p className="text-[#888] text-xs text-center mb-5 leading-relaxed">
+          Se eliminará permanentemente <strong className="text-white">"{eventTitle}"</strong>.
+          Confirma con tu contraseña de administrador.
+        </p>
+        <form onSubmit={handleConfirm} className="space-y-4">
+          <div className="relative">
+            <input
+              type={showPw ? "text" : "password"}
+              value={password}
+              onChange={(e) => { setPassword(e.target.value); setError("") }}
+              placeholder="Contraseña de administrador"
+              autoFocus
+              className="admin-input pr-10"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPw(!showPw)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#555] hover:text-white"
+            >
+              {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </button>
+          </div>
+          {error && (
+            <p className="text-red-400 text-xs flex items-center gap-1">
+              <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" /> {error}
+            </p>
+          )}
+          <div className="flex gap-3 pt-1">
+            <button
+              type="submit"
+              disabled={loading}
+              className="flex-1 py-3 bg-red-500 hover:bg-red-600 disabled:opacity-50 text-white text-sm font-bold uppercase tracking-widest transition-colors"
+            >
+              {loading ? "Verificando..." : "Eliminar"}
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 py-3 border border-[#333] text-[#666] text-sm uppercase tracking-widest hover:text-white transition-colors"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   )
@@ -958,8 +1025,8 @@ export default function DashboardPage() {
         />
       )}
       {confirmDelete && (
-        <ConfirmModal
-          message={`¿Eliminar permanentemente el evento "${confirmDelete.title}"? Esta acción no se puede deshacer.`}
+        <DeleteWithPasswordModal
+          eventTitle={confirmDelete.title}
           onConfirm={() => handleDeleteEvent(confirmDelete)}
           onClose={() => setConfirmDelete(null)}
         />
