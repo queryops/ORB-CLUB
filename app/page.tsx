@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { ArtistsSection } from "@/components/artists-section"
@@ -7,17 +8,109 @@ import { ServicesSection } from "@/components/services-section"
 import { ManifestoSection } from "@/components/manifesto-section"
 import { Footer } from "@/components/footer"
 
+export const metadata: Metadata = {
+  title: "ORB Club Social | Donde el Arte Cobra Vida — Zipaquirá",
+  description:
+    "Club social para artistas emergentes en Zipaquirá. Eventos de hip-hop, freestyle y música en vivo. Compra tu boleta online vía WhatsApp. Carrera 16 # 14-53.",
+  alternates: {
+    canonical: "https://orbclubsocial.github.io",
+  },
+}
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["NightClub", "MusicVenue"],
+      "@id": "https://orbclubsocial.github.io/#venue",
+      name: "ORB Club Social",
+      description:
+        "Club social para artistas emergentes en Zipaquirá. Donde el arte, la comunidad y la sofisticación convergen.",
+      url: "https://orbclubsocial.github.io",
+      telephone: "+573106081378",
+      email: "ORBCLUB@gmail.com",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Carrera 16 # 14-53",
+        addressLocality: "Zipaquirá",
+        addressRegion: "Cundinamarca",
+        addressCountry: "CO",
+        postalCode: "250251",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 5.0245,
+        longitude: -74.0045,
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Friday", "Saturday"],
+          opens: "18:00",
+          closes: "03:00",
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Sunday"],
+          opens: "14:00",
+          closes: "22:00",
+        },
+      ],
+      sameAs: [
+        "https://www.instagram.com/orb_clubsocial",
+        "https://www.instagram.com/orb.music00",
+        "https://open.spotify.com/artist/6Bl6scWVQQ8F14lHmZ8Bqo",
+        "https://youtube.com/@orbmusic-pk9ii",
+      ],
+      image: "https://orbclubsocial.github.io/og-image.jpg",
+      priceRange: "$$",
+      currenciesAccepted: "COP",
+      paymentAccepted: "Cash, Transfer",
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://orbclubsocial.github.io/#org",
+      name: "ORB Club Social",
+      url: "https://orbclubsocial.github.io",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://orbclubsocial.github.io/icon.svg",
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+573106081378",
+        contactType: "customer service",
+        availableLanguage: "Spanish",
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://orbclubsocial.github.io/#website",
+      url: "https://orbclubsocial.github.io",
+      name: "ORB Club Social",
+      description: "Club social para artistas emergentes — Zipaquirá, Cundinamarca",
+      inLanguage: "es-CO",
+    },
+  ],
+}
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
-      <HeroSection />
-      <ArtistsSection />
-      <EventsSection />
-      <VenueSection />
-      <ServicesSection />
-      <ManifestoSection />
-      <Footer />
-    </main>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <main className="min-h-screen bg-background">
+        <Header />
+        <HeroSection />
+        <ArtistsSection />
+        <EventsSection />
+        <VenueSection />
+        <ServicesSection />
+        <ManifestoSection />
+        <Footer />
+      </main>
+    </>
   )
 }

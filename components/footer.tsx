@@ -127,12 +127,20 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">© 2026 O.R.B. Todos los derechos reservados.</p>
-          <div className="flex gap-6 text-sm text-muted-foreground">
+          <div className="flex gap-6 text-sm text-muted-foreground items-center">
             <Link href="#" className="hover:text-foreground transition-colors">
               Política de Privacidad
             </Link>
             <Link href="#" className="hover:text-foreground transition-colors">
               Términos de Uso
+            </Link>
+            {/* Discreet admin access — not indexed */}
+            <Link
+              href="/admin"
+              className="text-muted-foreground/20 hover:text-muted-foreground/60 transition-colors text-xs"
+              aria-label="Admin"
+            >
+              ·
             </Link>
           </div>
         </div>
