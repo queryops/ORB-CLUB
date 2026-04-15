@@ -34,6 +34,11 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: /ORB-CLUB
 
+      # CRÍTICO: GitHub Pages usa Jekyll que ignora carpetas con _
+      # El archivo .nojekyll desactiva Jekyll y permite servir _next/
+      - name: Disable Jekyll
+        run: touch out/.nojekyll
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
