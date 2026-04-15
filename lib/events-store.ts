@@ -59,7 +59,7 @@ export const DEFAULT_EVENTS: OrbEvent[] = [
     category: 'HIP-HOP',
     description:
       'Una noche épica de hip-hop underground con los mejores artistas del escenario local emergente de Zipaquirá. Freestyle, rap en vivo y mucha energía.',
-    flyerUrl: '/events/RAP DE LA MATA VOL2.jpg',
+    flyerUrl: '/events/RAP DE LA MATA VOL2.webp',
     price: '$20.000',
     venue: 'ORB Club Social',
     active: true,
@@ -73,7 +73,7 @@ export const DEFAULT_EVENTS: OrbEvent[] = [
     category: 'HIP-HOP',
     description:
       'El regreso de YAWAR CRU con un set especial en el ORB. Una noche para recordar llena de flows y beats únicos.',
-    flyerUrl: '/underground-dj-session-dark-nightclub-crowd-dancin.jpg',
+    flyerUrl: '/underground-dj-session-dark-nightclub-crowd-dancin.webp',
     price: '$25.000',
     venue: 'ORB Club Social',
     active: true,
@@ -85,6 +85,16 @@ export const DEFAULT_EVENTS: OrbEvent[] = [
 
 function isClient(): boolean {
   return typeof window !== 'undefined'
+}
+
+/**
+ * Dispatches a custom window event so any component on the same tab can react
+ * to localStorage changes in real time (the native `storage` event only fires
+ * in *other* tabs, not the originating one).
+ */
+function notifyEventsChanged(): void {
+  if (!isClient()) return
+  window.dispatchEvent(new CustomEvent('orb:events-changed'))
 }
 
 export function generateId(): string {
@@ -140,12 +150,14 @@ export function saveEvent(event: OrbEvent): void {
     events.push(event)
   }
   localStorage.setItem(EVENTS_KEY, JSON.stringify(events))
+  notifyEventsChanged()
 }
 
 export function deleteEvent(id: string): void {
   if (!isClient()) return
   const events = getEvents().filter((e) => e.id !== id)
   localStorage.setItem(EVENTS_KEY, JSON.stringify(events))
+  notifyEventsChanged()
 }
 
 export function deactivateEvent(id: string): void {
@@ -155,6 +167,7 @@ export function deactivateEvent(id: string): void {
   if (idx >= 0) {
     events[idx].active = false
     localStorage.setItem(EVENTS_KEY, JSON.stringify(events))
+    notifyEventsChanged()
   }
 }
 
@@ -166,6 +179,7 @@ export function updateEventDatetime(id: string, newDatetime: string, newTimeDisp
     events[idx].eventDatetime = newDatetime
     events[idx].timeDisplay = newTimeDisplay
     localStorage.setItem(EVENTS_KEY, JSON.stringify(events))
+    notifyEventsChanged()
   }
 }
 

@@ -8,6 +8,7 @@ import {
   Ticket, Info,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { imgSrc } from "@/lib/image-path"
 import {
   type OrbEvent,
   getActiveEvents,
@@ -40,6 +41,15 @@ export function EventsSection() {
   useEffect(() => {
     setMounted(true)
     loadEvents()
+
+    // Refresh when admin creates/edits/deletes events on the same tab
+    window.addEventListener('orb:events-changed', loadEvents)
+    // Also refresh when admin acts from a different tab
+    window.addEventListener('storage', loadEvents)
+    return () => {
+      window.removeEventListener('orb:events-changed', loadEvents)
+      window.removeEventListener('storage', loadEvents)
+    }
   }, [loadEvents])
 
   const handleEventExpire = useCallback(
@@ -107,7 +117,7 @@ export function EventsSection() {
                       />
                     ) : (
                       <Image
-                        src={activeEvent.flyerUrl}
+                        src={imgSrc(activeEvent.flyerUrl)}
                         alt={activeEvent.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"

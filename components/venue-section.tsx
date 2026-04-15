@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
+import { imgSrc } from "@/lib/image-path"
 
 const spaces = [
   {
@@ -11,28 +12,28 @@ const spaces = [
     description:
       "El espacio principal con sistema de sonido Funktion-One y iluminación arquitectónica programable.",
     capacity: "Capacidad: 150 personas",
-    image: "/dark-nightclub-main-hall-industrial-design-dramati.jpg",
+    image: "/dark-nightclub-main-hall-industrial-design-dramati.webp",
   },
   {
     id: 2,
     name: "The Vault",
     description: "Espacio con sets experimentales y experiencias inmersivas.",
     capacity: "Comparte tu experiencia en nuestras redes sociales.",
-    image: "/underground-vault-club-intimate-dark-space-ambient.jpg",
+    image: "/underground-vault-club-intimate-dark-space-ambient.webp",
   },
   {
     id: 3,
     name: "Gallery",
     description: "Galería de arte contemporáneo con Decoracion Inmersiva.",
     capacity: "El spot perfecto para perder la noción del tiempo",
-    image: "/modern-art-gallery-dark-walls-dramatic-spot-lighti.jpg",
+    image: "/modern-art-gallery-dark-walls-dramatic-spot-lighti.webp",
   },
   {
     id: 4,
     name: "Rooftop",
     description: "Panorámica con bar y área lounge para eventos privados.",
     capacity: "Luces Prendidas y Talento Activado en ORB Social Club",
-    image: "/rooftop-bar-lounge-night-city-view-ambient-lightin.jpg",
+    image: "/rooftop-bar-lounge-night-city-view-ambient-lightin.webp",
   },
 ]
 
@@ -58,7 +59,7 @@ export function VenueSection() {
         {/* Main Image */}
         <div className="relative aspect-[16/9] md:aspect-[21/9] overflow-hidden mb-8 bg-background/50 backdrop-blur-xl border border-primary/20">
           <Image
-            src={activeSpace.image || "/placeholder.svg"}
+            src={imgSrc(activeSpace.image || "/placeholder.svg")}
             alt={activeSpace.name}
             fill
             className="object-cover transition-all duration-700"
@@ -88,7 +89,7 @@ export function VenueSection() {
               )}
             >
               <Image
-                src={space.image || "/placeholder.svg"}
+                src={imgSrc(space.image || "/placeholder.svg")}
                 alt={space.name}
                 fill
                 className={cn(

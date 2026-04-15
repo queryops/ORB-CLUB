@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { ChevronDown } from "lucide-react"
+import { imgSrc } from "@/lib/image-path"
 
 function scrollToSection(id: string) {
   const element = document.getElementById(id)
@@ -18,7 +19,7 @@ export function HeroSection() {
       {/* Background nightclub image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/dark-nightclub-interior-with-dramatic-blue-neon-li.jpg"
+          src={imgSrc("/dark-nightclub-interior-with-dramatic-blue-neon-li.webp")}
           alt=""
           fill
           className="object-cover opacity-30"
@@ -54,7 +55,7 @@ export function HeroSection() {
         <div className="mb-4 md:mb-6">
           <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-52 md:h-52 lg:w-64 lg:h-64 mx-auto drop-shadow-[0_0_40px_oklch(0.65_0.2_250/0.4)]">
             <Image
-              src="/ORB.png"
+              src={imgSrc("/ORB.png")}
               alt="ORB Logo"
               fill
               className="object-contain"

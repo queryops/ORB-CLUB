@@ -23,6 +23,7 @@ function YoutubeIcon({ className }: { className?: string }) {
   )
 }
 import { cn } from "@/lib/utils"
+import { imgSrc } from "@/lib/image-path"
 
 type ArtistSocial = {
   instagram?: string
@@ -46,8 +47,8 @@ const artists: Artist[] = [
     id: 1,
     name: "RAFA",
     discipline: "ARTISTA",
-    photo: "/artistas/RAFA.jpeg",
-    image: "/RAFA.png",
+    photo: "/artistas/RAFA.webp",
+    image: "/RAFA.webp",
     description: "REGGAETON · AFROBEAT · DANCEHALL",
     social: {
       instagram: "https://www.instagram.com/rafa.orb?igsh=MXF2N2dwem15YzdyeA==",
@@ -59,8 +60,8 @@ const artists: Artist[] = [
     id: 2,
     name: "JHOEL D.",
     discipline: "ARTISTA",
-    photo: "/artistas/JHOELD.jpeg",
-    image: "/performance-artists-with-neon-lights-dramatic-dark.png",
+    photo: "/artistas/JHOELD.webp",
+    image: "/performance-artists-with-neon-lights-dramatic-dark.webp",
     description: "HIP-HOP · AFROBEAT · DANCEHALL",
     social: {
       instagram: "https://www.instagram.com/jhoel_d_oficial?igsh=MTFvNXlybnppdmkyMg==",
@@ -72,8 +73,8 @@ const artists: Artist[] = [
     id: 3,
     name: "MAC",
     discipline: "ARTISTA",
-    photo: "/artistas/MAC.jpeg",
-    image: "/musician-producer-in-dark-studio-with-ambient-ligh.png",
+    photo: "/artistas/MAC.webp",
+    image: "/musician-producer-in-dark-studio-with-ambient-ligh.webp",
     description: "HIP-HOP · AFROBEAT · DANCEHALL",
     social: {
       instagram: "https://www.instagram.com/mac_oficial07?igsh=MWV4eTZvbDA3OWM3cA==",
@@ -85,8 +86,8 @@ const artists: Artist[] = [
     id: 4,
     name: "TEBAN VISUAL",
     discipline: "DJ · PRODUCTOR · MANAGER",
-    photo: "/artistas/TEBAN-VISUAL.jpg",
-    image: "/female-dj-with-headphones-in-dark-club-lighting-bl.png",
+    photo: "/artistas/TEBAN-VISUAL.webp",
+    image: "/female-dj-with-headphones-in-dark-club-lighting-bl.webp",
     description: "Sonidos electrónicos que fusionan lo orgánico con lo digital.",
     social: {
       instagram: "https://www.instagram.com/tebanvisual?igsh=c2k0ODd1OGM4c3hj",
@@ -97,8 +98,8 @@ const artists: Artist[] = [
     id: 5,
     name: "JABERTH",
     discipline: "PRODUCTOR MUSICAL",
-    photo: "/artistas/JABERTH.jpg",
-    image: "/male-visual-artist-with-projections-dark-urban-set.png",
+    photo: "/artistas/JABERTH.webp",
+    image: "/male-visual-artist-with-projections-dark-urban-set.webp",
     description: "Instalaciones que transforman el espacio en experiencia.",
     social: {
       instagram: "https://www.instagram.com/jaberth_?igsh=NThuaGZlZHhheTBx",
@@ -109,8 +110,8 @@ const artists: Artist[] = [
     id: 6,
     name: "CAM-PHOTOS",
     discipline: "FOTÓGRAFA",
-    photo: "/artistas/CAM-PHOTOS.jpeg",
-    image: "/CAM.png",
+    photo: "/artistas/CAM-PHOTOS.webp",
+    image: "/CAM.webp",
     description: "Fotografía profesional. Capturando momentos que definen la escena.",
     social: {
       instagram: "https://www.instagram.com/cami.garcia2501?igsh=MXg3cG9ub3pnazE2cQ==",
@@ -120,8 +121,8 @@ const artists: Artist[] = [
     id: 7,
     name: "QueryOps",
     discipline: "DISEÑO · DESARROLLO WEB",
-    photo: "/artistas/QueryOPS.jpg",
-    image: "/musician-producer-in-dark-studio-with-ambient-ligh.png",
+    photo: "/artistas/QueryOPS.webp",
+    image: "/musician-producer-in-dark-studio-with-ambient-ligh.webp",
     description: "Diseño web y desarrollo de aplicaciones digitales.",
     social: {
       instagram: "https://www.instagram.com/queryops?igsh=MTV0c251YjJ0cG9yZw==",
@@ -163,7 +164,7 @@ export function ArtistsSection() {
                 {/* Main Artist Photo */}
                 <div className="relative aspect-[3/4] overflow-hidden bg-black border border-primary/20">
                   <Image
-                    src={artist.photo}
+                    src={imgSrc(artist.photo)}
                     alt={artist.name}
                     fill
                     className={cn(
@@ -185,7 +186,7 @@ export function ArtistsSection() {
                   {/* Circular logo badge — top right corner */}
                   <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full overflow-hidden border-2 border-black bg-black flex-shrink-0 z-10">
                     <Image
-                      src={artist.image || "/placeholder.svg"}
+                      src={imgSrc(artist.image || "/placeholder.svg")}
                       alt={`${artist.name} avatar`}
                       fill
                       className="object-cover"
