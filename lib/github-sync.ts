@@ -118,24 +118,53 @@ export async function pushEventsToGitHub(
 }
 
 /**
- * Validate a token by making a simple authenticated request.
+ * Validate a token by testing BOTH read and write access on the events file.
+ * A read-only token would pass a simple GET check but fail here on the PUT.
  */
 export async function verifyGithubToken(token: string): Promise<SyncResult> {
+  const apiUrl = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${EVENTS_PATH}`
+  const headers: Record<string, string> = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+    Accept: "application/vnd.github+json",
+  }
+
   try {
-    const res = await fetch(
-      `https://api.github.com/repos/${OWNER}/${REPO}/contents/${EVENTS_PATH}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/vnd.github+json",
-        },
+    // Step 1: Read the file (tests read permission)
+    const getRes = await fetch(apiUrl, { headers })
+    if (getRes.status === 401) return { ok: false, error: "Token inválido o expirado" }
+    if (getRes.status === 403) return { ok: false, error: "Token sin acceso a este repositorio" }
+    if (getRes.status === 404) return { ok: false, error: "Repositorio o archivo no encontrado" }
+    if (!getRes.ok) return { ok: false, error: `Error ${getRes.status} al leer archivo` }
+
+    const current = await getRes.json()
+
+    // Step 2: Write back the same content (tests write permission — no-op commit)
+    const putRes = await fetch(apiUrl, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify({
+        message: "chore: verify admin token [skip ci]",
+        content: current.content.replace(/\n/g, ""), // same content, already base64
+        sha: current.sha,
+        branch: BRANCH,
+      }),
+    })
+
+    if (putRes.status === 403) {
+      const body = await putRes.json().catch(() => ({}))
+      const msg = body.message ?? ""
+      if (msg.includes("Resource not accessible")) {
+        return { ok: false, error: "Token sin permiso de escritura. Ve a GitHub → token → Contents: Read AND Write" }
       }
-    )
-    if (res.status === 200) return { ok: true }
-    if (res.status === 401) return { ok: false, error: "Token inválido o expirado" }
-    if (res.status === 403) return { ok: false, error: "Token sin permisos de escritura en este repo" }
-    if (res.status === 404) return { ok: false, error: "Repo no encontrado. Verifica el token y el repo" }
-    return { ok: false, error: `Error ${res.status}` }
+      return { ok: false, error: "Token sin permisos de escritura en este repo" }
+    }
+    if (!putRes.ok) {
+      const body = await putRes.json().catch(() => ({}))
+      return { ok: false, error: body.message ?? `Error ${putRes.status} al verificar escritura` }
+    }
+
+    return { ok: true }
   } catch {
     return { ok: false, error: "Error de red al verificar token" }
   }
