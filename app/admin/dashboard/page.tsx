@@ -13,9 +13,13 @@ import {
   getEvents, getActiveEvents, saveEvent, deleteEvent, deactivateEvent,
   getPurchases, getPurchasesByEvent, updatePurchaseStatus,
   generateId, formatEventDate, buildWhatsAppReport, openWhatsApp,
-  EVENT_CATEGORIES, DEFAULT_EVENTS,
+  syncEventsFromGitHub, EVENT_CATEGORIES, DEFAULT_EVENTS,
 } from "@/lib/events-store"
 import { isAuthenticated, logout, changePassword, ADMIN_USERNAME } from "@/lib/auth"
+import {
+  getGithubToken, setGithubToken, clearGithubToken, hasGithubToken,
+  pushEventsToGitHub, verifyGithubToken, type SyncResult,
+} from "@/lib/github-sync"
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -477,12 +481,18 @@ export default function DashboardPage() {
   const [selectedEventId, setSelectedEventId] = useState<string>("all")
   const [purchases, setPurchases] = useState<PurchaseRequest[]>([])
 
-  // Settings
+  // Settings — password
   const [pwForm, setPwForm] = useState({ current: "", next: "", confirm: "" })
   const [showPwCurrent, setShowPwCurrent] = useState(false)
   const [showPwNext, setShowPwNext] = useState(false)
   const [pwMsg, setPwMsg] = useState<{ type: "ok" | "err"; text: string } | null>(null)
   const [changingPw, setChangingPw] = useState(false)
+
+  // Settings — GitHub sync
+  const [ghToken, setGhTokenState] = useState("")
+  const [ghStatus, setGhStatus] = useState<{ type: "ok" | "err" | "info"; text: string } | null>(null)
+  const [ghVerifying, setGhVerifying] = useState(false)
+  const [syncStatus, setSyncStatus] = useState<string | null>(null)
 
   // ─── Auth guard
   useEffect(() => {
@@ -490,7 +500,10 @@ export default function DashboardPage() {
     if (!isAuthenticated()) {
       router.replace("/admin")
     } else {
-      refreshEvents()
+      // Load saved token into input
+      setGhTokenState(getGithubToken())
+      // Pull latest events from GitHub on load
+      syncEventsFromGitHub().then(() => refreshEvents())
       refreshPurchases()
     }
   }, [router])
@@ -503,18 +516,29 @@ export default function DashboardPage() {
     setPurchases(getPurchases())
   }, [])
 
+  // ─── Push all events to GitHub after any local mutation
+  const pushToGitHub = useCallback(async () => {
+    if (!hasGithubToken()) return
+    setSyncStatus("Sincronizando con GitHub…")
+    const result = await pushEventsToGitHub(getEvents())
+    setSyncStatus(result.ok ? "✓ Guardado en GitHub" : `⚠ ${result.error}`)
+    setTimeout(() => setSyncStatus(null), 4000)
+  }, [])
+
   // ─── Event handlers
   const handleSaveEvent = (event: OrbEvent) => {
     saveEvent(event)
     refreshEvents()
     setShowCreateModal(false)
     setEditEvent(null)
+    pushToGitHub()
   }
 
   const handleDeleteEvent = (event: OrbEvent) => {
     deleteEvent(event.id)
     refreshEvents()
     setConfirmDelete(null)
+    pushToGitHub()
   }
 
   const handleSendReport = (event: OrbEvent) => {
@@ -600,6 +624,18 @@ export default function DashboardPage() {
               </a>
               <span className="text-[#333] hidden sm:block">|</span>
               <span className="text-[#555] text-xs uppercase tracking-widest hidden sm:block">Admin</span>
+              {syncStatus && (
+                <span className={`text-xs px-2 py-0.5 rounded hidden sm:inline ${
+                  syncStatus.startsWith("✓") ? "text-green-400 bg-green-400/10" :
+                  syncStatus.startsWith("⚠") ? "text-yellow-400 bg-yellow-400/10" :
+                  "text-[#4d9de0] bg-[#4d9de0]/10"
+                }`}>{syncStatus}</span>
+              )}
+              {!hasGithubToken() && (
+                <span className="text-xs text-yellow-500/70 hidden md:inline">
+                  ⚠ Sin GitHub sync — cambios solo en este navegador
+                </span>
+              )}
             </div>
 
             {/* Tab nav */}
@@ -936,6 +972,96 @@ export default function DashboardPage() {
                 </div>
               </div>
 
+              {/* ── GitHub Sync */}
+              <div className="bg-[#0d0d0d] border border-[#4d9de0]/20 p-5 mb-6">
+                <h2 className="text-xs uppercase tracking-widest text-[#4d9de0] mb-1 flex items-center gap-2">
+                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                  </svg>
+                  Sincronización GitHub
+                </h2>
+                <p className="text-[#555] text-[10px] mb-4 leading-relaxed">
+                  Los eventos se guardan localmente en este navegador. Para que aparezcan en todos
+                  los dispositivos, configura un token de GitHub con permiso <strong className="text-[#777]">Contents: Read & Write</strong> en este repo.
+                </p>
+
+                <div className="space-y-3">
+                  <div>
+                    <label className="admin-label">Personal Access Token (Fine-grained)</label>
+                    <div className="flex gap-2">
+                      <input
+                        type="password"
+                        value={ghToken}
+                        onChange={(e) => { setGhTokenState(e.target.value); setGhStatus(null) }}
+                        placeholder="github_pat_..."
+                        className="admin-input flex-1"
+                      />
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          if (!ghToken.trim()) { setGhStatus({ type: "err", text: "Ingresa el token" }); return }
+                          setGhVerifying(true); setGhStatus(null)
+                          const r = await verifyGithubToken(ghToken.trim())
+                          setGhVerifying(false)
+                          if (r.ok) {
+                            setGithubToken(ghToken.trim())
+                            setGhStatus({ type: "ok", text: "✓ Token válido y guardado" })
+                          } else {
+                            setGhStatus({ type: "err", text: r.error })
+                          }
+                        }}
+                        disabled={ghVerifying}
+                        className="px-4 py-2 bg-[#4d9de0] hover:bg-[#3d8dd0] disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider transition-colors whitespace-nowrap"
+                      >
+                        {ghVerifying ? "…" : "Guardar"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {ghStatus && (
+                    <p className={`text-xs flex items-center gap-1 ${
+                      ghStatus.type === "ok" ? "text-green-400" :
+                      ghStatus.type === "err" ? "text-red-400" : "text-[#4d9de0]"
+                    }`}>
+                      {ghStatus.text}
+                    </p>
+                  )}
+
+                  <div className="flex gap-2 pt-1">
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        setSyncStatus("Sincronizando…")
+                        const r = await pushEventsToGitHub(getEvents())
+                        setSyncStatus(r.ok ? "✓ Guardado en GitHub" : `⚠ ${r.error}`)
+                        setTimeout(() => setSyncStatus(null), 4000)
+                      }}
+                      disabled={!hasGithubToken()}
+                      className="flex-1 py-2 bg-[#4d9de0]/10 border border-[#4d9de0]/30 text-[#4d9de0] text-xs uppercase tracking-wider hover:bg-[#4d9de0]/20 disabled:opacity-30 transition-colors"
+                    >
+                      Forzar sync ahora
+                    </button>
+                    {hasGithubToken() && (
+                      <button
+                        type="button"
+                        onClick={() => { clearGithubToken(); setGhTokenState(""); setGhStatus({ type: "info", text: "Token eliminado" }) }}
+                        className="px-4 py-2 border border-red-500/20 text-red-400/60 text-xs uppercase tracking-wider hover:text-red-400 hover:border-red-500/40 transition-colors"
+                      >
+                        Limpiar
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="pt-1 border-t border-[#1a1a1a]">
+                    <p className="text-[#444] text-[10px] leading-relaxed">
+                      <strong className="text-[#555]">Cómo crear el token:</strong> GitHub → Settings → Developer settings →
+                      Personal access tokens → Fine-grained → Repository: queryops/ORB-CLUB →
+                      Repository permissions → Contents: Read & Write
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Change password */}
               <div className="bg-[#0d0d0d] border border-[#1a1a1a] p-5">
                 <h2 className="text-xs uppercase tracking-widest text-[#555] mb-5 flex items-center gap-2">
@@ -1020,7 +1146,7 @@ export default function DashboardPage() {
       {editDateEvent && (
         <EditDateModal
           event={editDateEvent}
-          onSave={(e) => { saveEvent(e); refreshEvents() }}
+          onSave={(e) => { saveEvent(e); refreshEvents(); pushToGitHub() }}
           onClose={() => setEditDateEvent(null)}
         />
       )}

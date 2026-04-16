@@ -16,6 +16,7 @@ import {
   buildWhatsAppReport,
   openWhatsApp,
   formatEventDate,
+  syncEventsFromGitHub,
 } from "@/lib/events-store"
 import { EventCountdown } from "@/components/event-countdown"
 import { TicketModal } from "@/components/ticket-modal"
@@ -40,11 +41,12 @@ export function EventsSection() {
 
   useEffect(() => {
     setMounted(true)
+    // First load from localStorage cache immediately (no flicker)
     loadEvents()
+    // Then sync from GitHub in background — updates localStorage and re-renders
+    syncEventsFromGitHub()
 
-    // Refresh when admin creates/edits/deletes events on the same tab
     window.addEventListener('orb:events-changed', loadEvents)
-    // Also refresh when admin acts from a different tab
     window.addEventListener('storage', loadEvents)
     return () => {
       window.removeEventListener('orb:events-changed', loadEvents)

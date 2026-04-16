@@ -98,6 +98,25 @@ function notifyEventsChanged(): void {
   window.dispatchEvent(new CustomEvent('orb:events-changed'))
 }
 
+/**
+ * Pull events from GitHub raw URL and overwrite localStorage cache.
+ * Called on mount in public pages and admin dashboard.
+ * Falls back silently to existing localStorage data if fetch fails.
+ */
+export async function syncEventsFromGitHub(): Promise<void> {
+  if (!isClient()) return
+  try {
+    const { pullEventsFromGitHub } = await import('./github-sync')
+    const remote = await pullEventsFromGitHub()
+    if (remote && Array.isArray(remote)) {
+      localStorage.setItem(EVENTS_KEY, JSON.stringify(remote))
+      notifyEventsChanged()
+    }
+  } catch {
+    // Network error or GitHub unavailable — use cached localStorage
+  }
+}
+
 export function generateId(): string {
   return `${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 9)}`
 }

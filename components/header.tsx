@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { imgSrc } from "@/lib/image-path"
 
 const navLinks = [
   { id: "artistas", label: "Artistas" },
@@ -43,11 +45,16 @@ export function Header() {
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="group">
-            <span className="text-2xl font-bold tracking-tighter text-foreground transition-colors group-hover:text-primary">
-              orb
-            </span>
-            <span className="text-primary text-2xl">.</span>
+          <Link href="/" className="group" aria-label="ORB Club Social — Inicio">
+            <div className="relative w-10 h-10 drop-shadow-[0_0_8px_oklch(0.65_0.2_250/0.5)] group-hover:drop-shadow-[0_0_14px_oklch(0.65_0.2_250/0.7)] transition-all duration-300">
+              <Image
+                src={imgSrc("/apple-icon.png")}
+                alt="ORB Club Social"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
           </Link>
 
           {/* Desktop Navigation */}

@@ -22,7 +22,7 @@ export function HeroSection() {
           src={imgSrc("/dark-nightclub-interior-with-dramatic-blue-neon-li.webp")}
           alt=""
           fill
-          className="object-cover opacity-55"
+          className="object-cover opacity-75"
           priority
         />
       </div>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Calendar, Clock, MapPin, ArrowLeft, Tag, ChevronDown, ChevronUp, Info } from "lucide-react"
 import Link from "next/link"
-import { type OrbEvent, getActiveEvents, formatEventDate } from "@/lib/events-store"
+import { type OrbEvent, getActiveEvents, formatEventDate, syncEventsFromGitHub } from "@/lib/events-store"
 import { EventCountdown } from "@/components/event-countdown"
 import { TicketModal } from "@/components/ticket-modal"
 
@@ -16,6 +16,8 @@ export default function CalendarioPage() {
   useEffect(() => {
     setMounted(true)
     setEvents(getActiveEvents())
+    // Pull fresh data from GitHub, then re-render
+    syncEventsFromGitHub().then(() => setEvents(getActiveEvents()))
   }, [])
 
   const toggleExpand = (id: string) => {
