@@ -2,10 +2,10 @@ import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
 
-const siteUrl = "https://orbclubsocial.github.io/ORB-CLUB"
+const siteUrl = "https://queryops.github.io/ORB-CLUB"
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://orbclubsocial.github.io"),
+  metadataBase: new URL("https://queryops.github.io"),
   title: {
     default: "ORB Club Social | Club para Artistas Emergentes — Zipaquirá",
     template: "%s | ORB Club Social",
