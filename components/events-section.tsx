@@ -43,8 +43,8 @@ export function EventsSection() {
     setMounted(true)
     // First load from localStorage cache immediately (no flicker)
     loadEvents()
-    // Then sync from GitHub in background — updates localStorage and re-renders
-    syncEventsFromGitHub()
+    // Then sync from GitHub in background — updates localStorage and re-renders via event + explicit reload
+    syncEventsFromGitHub().then(loadEvents)
 
     window.addEventListener('orb:events-changed', loadEvents)
     window.addEventListener('storage', loadEvents)

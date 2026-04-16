@@ -4,21 +4,20 @@ import { useState, useEffect, useCallback, useRef } from "react"
 import { useRouter } from "next/navigation"
 import {
   LogOut, Plus, Trash2, Edit3, Calendar, Users, CheckCircle, XCircle,
-  Clock, MessageCircle, Upload, X, Save, AlertCircle, BarChart3,
-  ChevronDown, RefreshCw, Settings, Lock, Eye, EyeOff,
+  Clock, MessageCircle, Upload, X, Save, AlertCircle,
+  RefreshCw, Settings, Lock, Eye, EyeOff,
 } from "lucide-react"
-import Image from "next/image"
 import {
   type OrbEvent, type PurchaseRequest,
-  getEvents, getActiveEvents, saveEvent, deleteEvent, deactivateEvent,
+  getEvents, saveEvent, deleteEvent, deactivateEvent,
   getPurchases, getPurchasesByEvent, updatePurchaseStatus,
   generateId, formatEventDate, buildWhatsAppReport, openWhatsApp,
-  syncEventsFromGitHub, EVENT_CATEGORIES, DEFAULT_EVENTS,
+  syncEventsFromGitHub, EVENT_CATEGORIES,
 } from "@/lib/events-store"
 import { isAuthenticated, logout, changePassword, ADMIN_USERNAME } from "@/lib/auth"
 import {
   getGithubToken, setGithubToken, clearGithubToken, hasGithubToken,
-  pushEventsToGitHub, verifyGithubToken, type SyncResult,
+  pushEventsToGitHub, verifyGithubToken,
 } from "@/lib/github-sync"
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -122,7 +121,7 @@ function EventFormModal({ event, onSave, onClose }: EventFormProps) {
     reader.readAsDataURL(file)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length) { setErrors(errs); return }
@@ -388,7 +387,7 @@ function DeleteWithPasswordModal({
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
-  const handleConfirm = async (e: React.FormEvent) => {
+  const handleConfirm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!password.trim()) { setError("Ingresa tu contraseña"); return }
     setLoading(true)
@@ -559,7 +558,7 @@ export default function DashboardPage() {
     refreshPurchases()
   }
 
-  const handleChangePassword = async (e: React.FormEvent) => {
+  const handleChangePassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setPwMsg(null)
     if (pwForm.next !== pwForm.confirm) {
