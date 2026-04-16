@@ -1,18 +1,5 @@
 [
   {
-    "id": "evt-002",
-    "title": "YAWAR CRU",
-    "eventDatetime": "2026-08-15T18:00:00",
-    "timeDisplay": "6:00 PM",
-    "category": "HIP-HOP",
-    "description": "El regreso de YAWAR CRU con un set especial en el ORB. Una noche para recordar llena de flows y beats únicos.",
-    "flyerUrl": "/underground-dj-session-dark-nightclub-crowd-dancin.webp",
-    "price": "$25.000",
-    "venue": "ORB Club Social",
-    "active": true,
-    "createdAt": "2026-03-15T00:00:00"
-  },
-  {
     "id": "mo0s3ikl-k1iepu0",
     "title": "HIP HOP AL ESTILO DE ELLAS",
     "eventDatetime": "2026-04-25T15:00:00",
