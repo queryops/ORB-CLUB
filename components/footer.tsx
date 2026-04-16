@@ -84,7 +84,7 @@ export function Footer() {
             <h4 className="text-sm uppercase tracking-widest text-foreground mb-6">Contacto</h4>
             <div className="flex flex-col gap-4">
               <a
-                href="mailto:hola@orbclub.com"
+                href="mailto:ORBCLUB@gmail.com"
                 className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail className="w-4 h-4 text-primary" />

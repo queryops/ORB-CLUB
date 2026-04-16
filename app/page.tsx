@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description:
     "Club social para artistas emergentes en Zipaquirá. Eventos de hip-hop, freestyle y música en vivo. Compra tu boleta online vía WhatsApp. Carrera 16 # 14-53.",
   alternates: {
-    canonical: "https://queryops.github.io",
+    canonical: "https://queryops.github.io/ORB-CLUB",
   },
 }
 
@@ -24,11 +24,11 @@ const structuredData = {
   "@graph": [
     {
       "@type": ["NightClub", "MusicVenue"],
-      "@id": "https://queryops.github.io/#venue",
+      "@id": "https://queryops.github.io/ORB-CLUB/#venue",
       name: "ORB Club Social",
       description:
         "Club social para artistas emergentes en Zipaquirá. Donde el arte, la comunidad y la sofisticación convergen.",
-      url: "https://queryops.github.io",
+      url: "https://queryops.github.io/ORB-CLUB",
       telephone: "+573106081378",
       email: "ORBCLUB@gmail.com",
       address: {
@@ -64,19 +64,19 @@ const structuredData = {
         "https://open.spotify.com/artist/6Bl6scWVQQ8F14lHmZ8Bqo",
         "https://youtube.com/@orbmusic-pk9ii",
       ],
-      image: "https://queryops.github.io/og-image.jpg",
+      image: "https://queryops.github.io/ORB-CLUB/og-image.jpg",
       priceRange: "$$",
       currenciesAccepted: "COP",
       paymentAccepted: "Cash, Transfer",
     },
     {
       "@type": "Organization",
-      "@id": "https://queryops.github.io/#org",
+      "@id": "https://queryops.github.io/ORB-CLUB/#org",
       name: "ORB Club Social",
-      url: "https://queryops.github.io",
+      url: "https://queryops.github.io/ORB-CLUB",
       logo: {
         "@type": "ImageObject",
-        url: "https://queryops.github.io/icon.svg",
+        url: "https://queryops.github.io/ORB-CLUB/icon.svg",
       },
       contactPoint: {
         "@type": "ContactPoint",
@@ -87,8 +87,8 @@ const structuredData = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://queryops.github.io/#website",
-      url: "https://queryops.github.io",
+      "@id": "https://queryops.github.io/ORB-CLUB/#website",
+      url: "https://queryops.github.io/ORB-CLUB",
       name: "ORB Club Social",
       description: "Club social para artistas emergentes — Zipaquirá, Cundinamarca",
       inLanguage: "es-CO",
