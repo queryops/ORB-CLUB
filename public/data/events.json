@@ -1,18 +1,5 @@
 [
   {
-    "id": "evt-001",
-    "title": "RAP DE LA MATA VOL. 2",
-    "eventDatetime": "2026-04-18T15:00:00",
-    "timeDisplay": "3:00 PM",
-    "category": "HIP-HOP",
-    "description": "Una noche épica de hip-hop underground con los mejores artistas del escenario local emergente de Zipaquirá. Freestyle, rap en vivo y mucha energía.",
-    "flyerUrl": "/events/RAP DE LA MATA VOL2.webp",
-    "price": "$20.000",
-    "venue": "ORB Club Social",
-    "active": true,
-    "createdAt": "2026-03-01T00:00:00"
-  },
-  {
     "id": "evt-002",
     "title": "YAWAR CRU",
     "eventDatetime": "2026-08-15T18:00:00",
